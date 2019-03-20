@@ -43,7 +43,7 @@ echo "Target : https://github.com/$ORG"
 echo ""
 read -rsp $'Press ctrl-c to abort. Press any key to continue...\n====================================================' -n1 key
 
-declare -a repositories=("catalog-service" "customer-service" "front-end" "order-service" "deploy-staging" "deploy-production")
+declare -a repositories=("catalog-service" "customer-service" "front-end" "order-service" "deploy")
 
 rm -rf ../repositories
 mkdir ../repositories

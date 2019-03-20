@@ -29,10 +29,18 @@ export JENKINS_PASSWORD=$(cat creds.json | jq -r '.jenkinsPassword')
 export JENKINS_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r .status.loadBalancer.ingress[].hostname)
 export JENKINS_URL_PORT=$(kubectl get service jenkins -n cicd -o=json | jq -r '.spec.ports[] | select(.name=="http") | .port')
 
-# copy the job templates to gen folder
+# clean up generated file.  dont delete the README!
 rm ../pipelines/gen/*.xml
 rm ../pipelines/gen/*.bak
-cp ../pipelines/*.xml ../pipelines/gen/
+
+# copy the job templates to gen folder
+cp ../pipelines/deploy*.xml ../pipelines/gen/
+cp ../pipelines/prod*.xml ../pipelines/gen/
+
+# have an optional argument for importing build pipelines. 
+if [ $2 = "build" ]
+  cp ../pipelines/build*.xml ../pipelines/gen/
+fi
 
 # loop through a list of jobs and create them.  if already exists, delete it first
 echo 'Using GitHub Org : '$ORG
@@ -40,7 +48,7 @@ echo 'Jenkins Server   : 'http://$JENKINS_URL:$JENKINS_URL_PORT
 
 OSTYPE=$(uname -s)
 
-for JOB_NAME in order-service catalog-service customer-service front-end deploy-staging deploy-production; do
+for JOB_NAME in build-order-service build-catalog-service build-customer-service build-front-end deploy-staging deploy-production production-continous-load; do
 
   # update each copy of the job template file in gen folder with GIT org name
   # NOTE: Mac requires the name of backup file as an argument, Linux does not

@@ -17,7 +17,7 @@
       <configVersion>2</configVersion>
       <userRemoteConfigs>
         <hudson.plugins.git.UserRemoteConfig>
-          <url>https://github.com/ORG_PLACEHOLDER/deploy-staging.git</url>
+          <url>https://github.com/ORG_PLACEHOLDER/deploy.git</url>
         </hudson.plugins.git.UserRemoteConfig>
       </userRemoteConfigs>
       <branches>
@@ -29,7 +29,7 @@
       <submoduleCfg class="list"/>
       <extensions/>
     </scm>
-    <scriptPath>Jenkinsfile</scriptPath>
+    <scriptPath>Jenkinsfile.Staging</scriptPath>
     <lightweight>true</lightweight>
   </definition>
   <triggers/>
