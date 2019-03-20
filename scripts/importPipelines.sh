@@ -27,7 +27,7 @@ fi
 export JENKINS_USER=$(cat creds.json | jq -r '.jenkinsUser')
 export JENKINS_PASSWORD=$(cat creds.json | jq -r '.jenkinsPassword')
 export JENKINS_URL=$(kubectl describe svc jenkins -n cicd | grep "LoadBalancer Ingress:" | sed 's~LoadBalancer Ingress:[ \t]*~~')
-export JENKINS_URL_PORT=24711
+export JENKINS_URL_PORT=(cat creds.json | jq -r '.jenkinsPort')
 
 # copy the job templates to gen folder
 rm ../pipelines/gen/*.xml
