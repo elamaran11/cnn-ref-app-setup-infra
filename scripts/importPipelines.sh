@@ -30,8 +30,8 @@ export JENKINS_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r .status
 export JENKINS_URL_PORT=$(kubectl get service jenkins -n cicd -o=json | jq -r '.spec.ports[] | select(.name=="http") | .port')
 
 # clean up generated file.  dont delete the README!
-rm ../pipelines/gen/*.xml
-rm ../pipelines/gen/*.bak
+rm -f ../pipelines/gen/*.xml
+rm -f ../pipelines/gen/*.bak
 
 # copy the job templates to gen folder
 cp ../pipelines/deploy*.xml ../pipelines/gen/
@@ -39,16 +39,19 @@ cp ../pipelines/prod*.xml ../pipelines/gen/
 
 # have an optional argument for importing build pipelines. 
 if [ $2 = "build" ]
+then
   cp ../pipelines/build*.xml ../pipelines/gen/
+  JOBLIST="build-order-service build-catalog-service build-customer-service build-front-end deploy-staging deploy-production production-continous-load"
+else
+  JOBLIST="deploy-staging deploy-production production-continous-load"
 fi
 
 # loop through a list of jobs and create them.  if already exists, delete it first
-echo 'Using GitHub Org : '$ORG
-echo 'Jenkins Server   : 'http://$JENKINS_URL:$JENKINS_URL_PORT
+echo 'Using GitHub Org as source of Jenkinsfiles : '$ORG
+echo 'Jenkins Server                             : 'http://$JENKINS_URL:$JENKINS_URL_PORT
 
 OSTYPE=$(uname -s)
-
-for JOB_NAME in build-order-service build-catalog-service build-customer-service build-front-end deploy-staging deploy-production production-continous-load; do
+for JOB_NAME in $JOBLIST; do
 
   # update each copy of the job template file in gen folder with GIT org name
   # NOTE: Mac requires the name of backup file as an argument, Linux does not
