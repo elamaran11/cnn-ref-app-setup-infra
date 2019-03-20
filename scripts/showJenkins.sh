@@ -2,8 +2,8 @@
 
 export JENKINS_USER=$(cat creds.json | jq -r '.jenkinsUser')
 export JENKINS_PASSWORD=$(cat creds.json | jq -r '.jenkinsPassword')
-export JENKINS_URL=$(kubectl describe svc jenkins -n cicd | grep "LoadBalancer Ingress:" | sed 's~LoadBalancer Ingress:[ \t]*~~')
-export JENKINS_URL_PORT=$(cat creds.json | jq -r '.jenkinsPort')
+export JENKINS_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r .status.loadBalancer.ingress[].hostname)
+export JENKINS_URL_PORT=$(kubectl get service jenkins -n cicd -o=json | jq -r '.spec.ports[] | select(.name=="http") | .port')
 
 echo "--------------------------------------------------------------------------"
 echo "Jenkins is running @ : http://$JENKINS_URL:$JENKINS_URL_PORT"
