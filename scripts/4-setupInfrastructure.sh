@@ -22,9 +22,6 @@ fi
 # using fixed versus 'latest' version 
 export DT_LATEST_RELEASE='v0.3.0'
 
-# set the registry to fixed location for the workshop in dockerhub
-export REGISTRY_URL=robjahn
-
 echo " "
 echo "===================================================="
 echo About to setup demo app infrastructure with these parameters:
@@ -45,6 +42,8 @@ export DT_TENANT_ID=$(cat creds.json | jq -r '.dynatraceTenant')
 export DT_API_TOKEN=$(cat creds.json | jq -r '.dynatraceApiToken')
 export DT_PAAS_TOKEN=$(cat creds.json | jq -r '.dynatracePaaSToken')
 export DT_TENANT_URL="$DT_TENANT_ID.live.dynatrace.com"
+export REGISTRY_URL=$(cat creds.json | jq -r '.registry')
+export REGISTRY_TOKEN=$(cat creds.json | jq -r '.registryToken')
 
 echo "----------------------------------------------------"
 echo "Creating K8s namespaces ..."
