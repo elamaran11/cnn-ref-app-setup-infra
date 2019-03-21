@@ -1,5 +1,9 @@
 #!/bin/bash
 
+LOG_LOCATION=./logs
+exec > >(tee -i $LOG_LOCATION/provisionInfrastructure.log)
+exec 2>&1
+
 clear
 
 echo "===================================================="

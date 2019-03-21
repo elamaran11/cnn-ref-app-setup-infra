@@ -1,9 +1,9 @@
 #!/bin/bash
 
-clear
 LOG_LOCATION=./logs
 exec > >(tee -i $LOG_LOCATION/setupInfrastructure.log)
 exec 2>&1
+clear
 
 # validate that have utlities installed first
 ./validatePrerequisites.sh
