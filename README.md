@@ -6,6 +6,7 @@ Footnotes:
 * Currently, these setup scripts support only AWS.  The plan is to support Azure, RedHat, and Cloud Foundry PaaS platforms.
 * Terraform scripts are based from the full example in from https://github.com/cloudposse/terraform-aws-eks-cluster
 * The Jenkins docker image is from: https://hub.docker.com/r/keptn/jenkins
+* Demo app based on example from: https://github.com/ewolff/microservice-kubernetes
 
 # Dynatrace - Pre-requisites
 
