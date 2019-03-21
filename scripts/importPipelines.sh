@@ -41,9 +41,9 @@ cp ../pipelines/prod*.xml ../pipelines/gen/
 if [ $2 = "build" ]
 then
   cp ../pipelines/build*.xml ../pipelines/gen/
-  JOBLIST="build-order-service build-catalog-service build-customer-service build-front-end deploy-service deploy-staging deploy-production production-continous-load"
+  JOBLIST="build-order-service build-catalog-service build-customer-service build-front-end deploy-service deploy-staging deploy-production load-test"
 else
-  JOBLIST="deploy-staging deploy-production deploy-service production-continous-load"
+  JOBLIST="deploy-staging deploy-production deploy-service load-test"
 fi
 
 # loop through a list of jobs and create them.  if already exists, delete it first
