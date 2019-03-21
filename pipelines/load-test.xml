@@ -29,7 +29,7 @@
       <submoduleCfg class="list"/>
       <extensions/>
     </scm>
-    <scriptPath>Jenkinsfile.ProductionLoad</scriptPath>
+    <scriptPath>Jenkinsfile.LoadTest</scriptPath>
     <lightweight>true</lightweight>
   </definition>
   <triggers/>
