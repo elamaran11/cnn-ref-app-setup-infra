@@ -35,7 +35,7 @@ rm -f ../pipelines/gen/*.bak
 
 # copy the job templates to gen folder
 cp ../pipelines/deploy*.xml ../pipelines/gen/
-cp ../pipelines/prod*.xml ../pipelines/gen/
+cp ../pipelines/load*.xml ../pipelines/gen/
 
 # have an optional argument for importing build pipelines. 
 if [ $2 = "build" ]
