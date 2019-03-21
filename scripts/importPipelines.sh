@@ -9,7 +9,7 @@ if [ -z $1 ]
 then
     echo "Please provide the target GitHub organization as parameter:"
     echo ""
-    echo "  e.g.: ./importPipelines.sh myorganization"
+    echo "  e.g.: ./importPipelines.sh <lastname>-dt-kube-demo"
     echo ""
     exit 1
 else
