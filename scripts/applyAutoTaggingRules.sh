@@ -13,7 +13,7 @@ curl -X POST \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
   -d '{
-    "name": "service",
+    "name": "dt-kube-demo-service",
     "rules": [
         {
             "type": "SERVICE",
@@ -45,7 +45,7 @@ curl -X POST \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
   -d '{
-	"name": "environment",
+	"name": "dt-kube-demo-environment",
   "rules": [
     {
       "type": "SERVICE",
