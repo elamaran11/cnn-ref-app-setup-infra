@@ -172,9 +172,9 @@ echo "----------------------------------------------------"
 echo "Letting Dynatrace tagging rules be applied [100 seconds] ..."
 sleep 150
 
-echo "----------------------------------------------------"
-echo "Deploying Istio ..."
-./setupIstio.sh $DT_TENANT_ID $DT_PAAS_TOKEN
+#echo "----------------------------------------------------"
+#echo "Deploying Istio ..."
+#./setupIstio.sh $DT_TENANT_ID $DT_PAAS_TOKEN
 
 echo "===================================================="
 echo "Finished setting up demo app infrastructure "
