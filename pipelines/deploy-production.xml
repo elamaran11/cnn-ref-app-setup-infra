@@ -6,7 +6,11 @@
       <jobProperties/>
       <triggers/>
       <parameters>
-        <string>version</string>
+        <string>registry</string>
+        <string>frontendversion</string>
+        <string>customerserviceversion</string>
+        <string>catalogserviceversion</string>
+        <string>orderserviceversion</string>
       </parameters>
       <options/>
     </org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction>
@@ -17,9 +21,33 @@
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
         <hudson.model.StringParameterDefinition>
-          <name>version</name>
-          <description>pass in value bad to deploy bad version</description>
-          <defaultValue>good</defaultValue>
+          <name>frontendversion</name>
+          <description>image tag when custom version option choosen</description>
+          <defaultValue>1</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>orderserviceversion</name>
+          <description>image tag when custom version option choosen</description>
+          <defaultValue>1</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>customerserviceversion</name>
+          <description>image tag when custom version option choosen</description>
+          <defaultValue>1</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>catalogserviceversion</name>
+          <description>image tag when custom version option choosen</description>
+          <defaultValue>1</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>registry</name>
+          <description>Dockerhub account with Docker Images</description>
+          <defaultValue>robjahn</defaultValue>
           <trim>false</trim>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
@@ -42,7 +70,7 @@
       <submoduleCfg class="list"/>
       <extensions/>
     </scm>
-    <scriptPath>Jenkinsfile.Production</scriptPath>
+    <scriptPath>Jenkinsfile.DeployProduction</scriptPath>
     <lightweight>true</lightweight>
   </definition>
   <triggers/>
