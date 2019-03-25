@@ -1,5 +1,9 @@
 #!/bin/bash
 
+LOG_LOCATION=./logs
+exec > >(tee -i $LOG_LOCATION/applyAutoTaggingRules.log)
+exec 2>&1
+
 echo "Setting up auto tagging rules in your Dynatrace tenant."
 
 DT_TENANT_ID=$1

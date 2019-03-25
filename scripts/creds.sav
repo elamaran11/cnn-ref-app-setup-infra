@@ -10,5 +10,5 @@
     "githubUserEmail": "GITHUB_USER_EMAIL_PLACEHOLDER",
     "githubOrg": "GITHUB_ORG_PLACEHOLDER",
     "registry": "robjahn",
-    "registryToken": "REGISTRY_PLACEHOLDER"
+    "registryToken": ""
 }

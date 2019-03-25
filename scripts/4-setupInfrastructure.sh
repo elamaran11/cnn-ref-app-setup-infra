@@ -25,7 +25,7 @@ export DT_LATEST_RELEASE='v0.3.0'
 echo " "
 echo "===================================================="
 echo About to setup demo app infrastructure with these parameters:
-cat creds.json
+cat creds.json | grep -E "jenkins|dynatrace|github"
 echo ""
 echo "Using Dynatrace OneAgent Operator version : $DT_LATEST_RELEASE"
 echo ""
@@ -48,24 +48,6 @@ export REGISTRY_TOKEN=$(cat creds.json | jq -r '.registryToken')
 echo "----------------------------------------------------"
 echo "Creating K8s namespaces ..."
 kubectl create -f ../manifests/namespaces.yml 
-
-#echo "----------------------------------------------------"
-#echo "Creating the Docker Container registry ..."
-
-#kubectl create -f ../manifests/docker-registry/k8s-docker-registry-pvc.yml
-#kubectl create -f ../manifests/docker-registry/k8s-docker-registry-deployment.yml
-#kubectl create -f ../manifests/docker-registry/k8s-docker-registry-service.yml
-
-#echo "----------------------------------------------------"
-#echo "Letting Docker Container registry start up [100 seconds] ..."
-#sleep 100
-
-# store the docker registry route in a variable
-#export REGISTRY_URL=$(kubectl describe svc docker-registry -n cicd | grep IP: | sed 's/IP:[ \t]*//')
-
-#echo "----------------------------------------------------"
-#echo "Registry is running @ : $REGISTRY_URL"
-#read -rsp $'Press ctrl-c to abort. Press any key to continue...\n' -n1 key
 
 echo "----------------------------------------------------"
 echo "Deploying Jenkins ..."

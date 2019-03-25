@@ -5,7 +5,7 @@
 repositories
 
 # credentials file with personal tokens
-scripts/creds.json
+scripts/creds.json*
 
 # installation logs
 scripts/logs/*.log

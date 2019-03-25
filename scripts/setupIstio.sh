@@ -1,4 +1,9 @@
 #!/bin/bash
+
+LOG_LOCATION=./logs
+exec > >(tee -i $LOG_LOCATION/setupIstio.log)
+exec 2>&1
+
 DT_TENANT_ID=$1
 DT_PAAS_TOKEN=$2
 

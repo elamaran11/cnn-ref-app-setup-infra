@@ -1,5 +1,9 @@
 #!/bin/bash
 
+LOG_LOCATION=./logs
+exec > >(tee -i $LOG_LOCATION/create-service-entry.log)
+exec 2>&1
+
 entries=$(curl https://$1.live.dynatrace.com/api/v1/deployment/installer/agent/connectioninfo?Api-Token=$2 | jq -r '.communicationEndpoints[]')
 
 mkdir se_tmp

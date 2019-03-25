@@ -1,5 +1,9 @@
 #!/bin/bash
 
+LOG_LOCATION=./logs
+exec > >(tee -i $LOG_LOCATION/showJenkins.log)
+exec 2>&1
+
 export JENKINS_USER=$(cat creds.json | jq -r '.jenkinsUser')
 export JENKINS_PASSWORD=$(cat creds.json | jq -r '.jenkinsPassword')
 export JENKINS_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r .status.loadBalancer.ingress[].hostname)
