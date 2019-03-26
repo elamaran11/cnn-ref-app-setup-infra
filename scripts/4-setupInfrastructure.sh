@@ -163,3 +163,7 @@ echo "Finished setting up demo app infrastructure "
 echo "===================================================="
 echo "Script start time : "$START_TIME
 echo "Script end time   : "$(date)
+
+echo ""
+echo ""
+./showJenkins.sh 
