@@ -1,6 +1,6 @@
 # Overview
 
-This repo has various scripts to make the Dynatrace Kubernetes demo application cloud hosted Kubernetes, Docker registry, Jenkins, Istio, and demo CI/CD pipelines.
+This repos has the code and scripts to provision and configure a cloud infrastructure running Kubernetes and the required CI/CD components to build, deploy and host a micro service based order processing demo application.
 
 Footnotes:
 * Currently, these setup scripts support only AWS.  The plan is to support Azure, RedHat, and Cloud Foundry PaaS platforms.
