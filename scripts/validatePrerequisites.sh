@@ -53,7 +53,8 @@ if [ $? -ne 0 ]; then
 fi
 echo "ok	$(command -v kubectl)"
 
-echo ""if [ $DEPLOYMENT == ocp ]; then
+echo ""
+if [ $DEPLOYMENT == ocp ]; then
   echo "-----------------------------------------------------------------"
   echo "Validating OCP pre-requisites"
   echo "-----------------------------------------------------------------"

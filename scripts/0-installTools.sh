@@ -6,16 +6,28 @@ exec > >(tee -i $LOG_LOCATION/0-installTools.log)
 exec 2>&1
 
 # Validate Deployment argument
-OK=0 ; DEPLOY_TYPES="ocp eks gcp aks"
-for DT in $DEPLOY_TYPES ; do [ $1 == $DT ] && { OK=1 ; break; } ; done
-if [ $OK -eq 0 ]; then
-  echo ""
-  echo "====================================="
+if [ $? -ne 0 ]
+then
+  echo "============================================="
   echo "Missing 'deployment type' argument."
   echo "Usage:"
   echo "./0-InstallTools.sh <deployment type>"
   echo "valid deployment types are: ocp eks gcp aks"
-  echo "====================================="   
+  echo "=============================================" 
+  exit 1
+fi
+
+export DEPLOYMENT=$1
+OK=0 ; DEPLOY_TYPES="ocp eks gcp aks"
+for DT in $DEPLOY_TYPES ; do [ $1 == $DT ] && { OK=1 ; break; } ; done
+if [ $OK -eq 0 ]; then
+  echo ""
+  echo "============================================="
+  echo "Missing 'deployment type' argument."
+  echo "Usage:"
+  echo "./0-InstallTools.sh <deployment type>"
+  echo "valid deployment types are: ocp eks gcp aks"
+  echo "============================================="   
   echo ""
   exit 1
 fi
@@ -114,4 +126,4 @@ fi
 
 # run a final validation
 cd $CURRENT_DIR
-./validatePrerequisites.sh
+./validatePrerequisites.sh $DEPLOYMENT

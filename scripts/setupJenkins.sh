@@ -8,7 +8,7 @@ NC='\033[0m'
 # Validate Deployment argument
 export DEPLOYMENT=$1
 OK=0 ; DEPLOY_TYPES="ocp eks gcp aks"
-for DT in $DEPLOY_TYPES ; do [ $DEPLOYMENT == $DT ] && { OK=1 ; break; } ; done
+for DT in $DEPLOY_TYPES ; do [ $1 == $DT ] && { OK=1 ; break; } ; done
 if [ $OK -eq 0 ]; then
   echo ""
   echo "====================================="

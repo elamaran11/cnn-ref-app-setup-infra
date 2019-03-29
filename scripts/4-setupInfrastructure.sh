@@ -8,7 +8,7 @@ clear
 # Validate Deployment argument
 export DEPLOYMENT=$1
 OK=0 ; DEPLOY_TYPES="ocp eks gcp aks"
-for DT in $DEPLOY_TYPES ; do [ $DEPLOYMENT == $DT ] && { OK=1 ; break; } ; done
+for DT in $DEPLOY_TYPES ; do [ $1 == $DT ] && { OK=1 ; break; } ; done
 if [ $OK -eq 0 ]; then
   echo ""
   echo "====================================="
@@ -22,7 +22,7 @@ if [ $OK -eq 0 ]; then
 fi
 
 # validate that have utlities installed first
-./validatePrerequisites.sh $DEPLOYMENT_TYPE
+./validatePrerequisites.sh $DEPLOYMENT
 if [ $? -ne 0 ]
 then
   exit 1
@@ -57,7 +57,7 @@ kubectl create -f ../manifests/namespaces.yml
 
 echo "----------------------------------------------------"
 echo "Setting up Jenkins  ..."
-./manifests/setupJenkins.sh $DEPLOYMENT_TYPE
+./manifests/setupJenkins.sh $DEPLOYMENT
 
 echo "----------------------------------------------------"
 echo "Updating Jenkins PerfSig plugins ..."
@@ -74,7 +74,7 @@ sleep 60
 ./importJenkinsPipelines.sh $GITHUB_ORGANIZATION
 
 # add Dynatrace Operator
-./setupDynatrace.sh $DEPLOYMENT_TYPE
+./setupDynatrace.sh $DEPLOYMENT
 
 # add Dynatrace Tagging rules
 ./applyAutoTaggingRules.sh
