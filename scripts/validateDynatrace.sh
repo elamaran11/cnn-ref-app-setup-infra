@@ -4,9 +4,9 @@ LOG_LOCATION=./logs
 exec > >(tee -i $LOG_LOCATION/validateDynatrace.log)
 exec 2>&1
 
-echo "----------------------------------------------------"
-echo Validating Dynatrace PaaS is configured properly
-echo "----------------------------------------------------"
+echo "==========================="
+echo Validating Dynatrace 
+echo "==========================="
 
 export DT_TENANT_ID=$(cat creds.json | jq -r '.dynatraceTenant')
 export DT_API_TOKEN=$(cat creds.json | jq -r '.dynatraceApiToken')
