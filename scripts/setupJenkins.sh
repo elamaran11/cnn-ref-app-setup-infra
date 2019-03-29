@@ -6,12 +6,12 @@ YLW='\033[1;33m'
 NC='\033[0m'
 
 # Validate Deployment argument
-if [ $? -ne 0 ]
+if [ $? -eq 0 ]
 then
   echo "============================================="
   echo "Missing 'deployment type' argument."
   echo "Usage:"
-  echo "./0-InstallTools.sh <deployment type>"
+  echo "./setupJenkins.sh <deployment type>"
   echo "valid deployment types are: ocp eks gcp aks"
   echo "=============================================" 
   exit 1

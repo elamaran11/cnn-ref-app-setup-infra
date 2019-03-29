@@ -5,12 +5,12 @@ exec > >(tee -i $LOG_LOCATION/validatePrerequisites.log)
 exec 2>&1
 
 # Validate Deployment argument
-if [ $? -ne 0 ]
+if [ $? -eq 0 ]
 then
   echo "============================================="
   echo "Missing 'deployment type' argument."
   echo "Usage:"
-  echo "./0-InstallTools.sh <deployment type>"
+  echo "./validatePrerequisites.sh <deployment type>"
   echo "valid deployment types are: ocp eks gcp aks"
   echo "=============================================" 
   exit 1

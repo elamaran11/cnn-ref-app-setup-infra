@@ -6,7 +6,7 @@ exec > >(tee -i $LOG_LOCATION/0-installTools.log)
 exec 2>&1
 
 # Validate Deployment argument
-if [ $? -ne 0 ]
+if [ $? -eq 0 ]
 then
   echo "============================================="
   echo "Missing 'deployment type' argument."
