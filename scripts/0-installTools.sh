@@ -2,32 +2,25 @@
 # Adjusted to accomodate OpenShift Container Platform
 
 LOG_LOCATION=./logs
-exec > >(tee -i $LOG_LOCATION/installTools.log)
+exec > >(tee -i $LOG_LOCATION/0-installTools.log)
 exec 2>&1
 
-# Identifying Deployment
-# usage: ./0-InstallTools.sh [deployment]
-# deployment types are: ocp eks gcp aks
-if [ -z $1 ]; then
+# Validate Deployment argument
+OK=0 ; DEPLOY_TYPES="ocp eks gcp aks"
+for DT in $DEPLOY_TYPES ; do [ $1 == $DT ] && { OK=1 ; break; } ; done
+if [ $OK -eq 0 ]; then
   echo ""
   echo "====================================="
+  echo "Missing 'deployment type' argument."
   echo "Usage:"
-  echo "requires deployment type"
-  echo ""
-  echo "/> ./0-InstallTools.sh <deployment>"
-  echo ""
-  echo "deployment types are: ocp eks gcp aks"
-  echo ""
+  echo "./0-InstallTools.sh <deployment type>"
+  echo "valid deployment types are: ocp eks gcp aks"
   echo "====================================="   
   echo ""
   exit 1
 fi
 
-export DEPLOYMENT=$1
-echo "============================"
-echo "Deployment Type: $DEPLOYMENT"
-echo "============================"
-# save current directory for later in script
+# save current directory for restoration later in script
 CURRENT_DIR=$(pwd)
 
 # executable files will be copied here if required
@@ -38,9 +31,12 @@ echo "export PATH=$HOME/bin:$PATH" >> ~/.bashrc
 # change to users home directory
 cd ~
 
+export DEPLOYMENT=$1
 clear
 echo "===================================================="
-echo About to install required tools into:
+echo "About to install required tools"
+echo "Deployment Type: $DEPLOYMENT"
+echo "Install path:"
 pwd
 echo ""
 read -rsp $'Press ctrl-c to abort. Press any key to continue...\n====================================================' -n1 key

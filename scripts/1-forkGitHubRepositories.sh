@@ -2,7 +2,7 @@
 
 SOURCE_GIT_ORG=dt-kube-demo
 LOG_LOCATION=./logs
-exec > >(tee -i $LOG_LOCATION/forkGitHubRepositories.log)
+exec > >(tee -i $LOG_LOCATION/1-forkGitHubRepositories.log)
 exec 2>&1
 
 YLW='\033[1;33m'

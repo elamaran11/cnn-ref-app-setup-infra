@@ -4,11 +4,25 @@ LOG_LOCATION=./logs
 exec > >(tee -i $LOG_LOCATION/validatePrerequisites.log)
 exec 2>&1
 
-echo "-----------------------------------------------------------------"
-echo "                     Validating pre-requisites"
-echo "-----------------------------------------------------------------"
-echo ""
+# Validate Deployment argument
+export DEPLOYMENT=$1
+OK=0 ; DEPLOY_TYPES="ocp eks gcp aks"
+for DT in $DEPLOY_TYPES ; do [ $DEPLOYMENT == $DT ] && { OK=1 ; break; } ; done
+if [ $OK -eq 0 ]; then
+  echo ""
+  echo "====================================="
+  echo "Missing 'deployment type' argument."
+  echo "Usage:"
+  echo "./validatePrerequisites.sh <deployment type>"
+  echo "valid deployment types are: ocp eks gcp aks"
+  echo "====================================="   
+  echo ""
+  exit 1
+fi
 
+echo "-----------------------------------------------------------------"
+echo "Validating Common pre-requisites"
+echo "-----------------------------------------------------------------"
 echo -n "Validating jq utility				"
 type jq &> /dev/null
 if [ $? -ne 0 ]; then
@@ -39,8 +53,10 @@ if [ $? -ne 0 ]; then
 fi
 echo "ok	$(command -v kubectl)"
 
-# Validating for OCP
-if [ $DEPLOYMENT == ocp ]; then
+echo ""if [ $DEPLOYMENT == ocp ]; then
+  echo "-----------------------------------------------------------------"
+  echo "Validating OCP pre-requisites"
+  echo "-----------------------------------------------------------------"
   echo -n "Validating oc				"
   type oc &> /dev/null
   if [ $? -ne 0 ]; then
@@ -52,8 +68,10 @@ if [ $DEPLOYMENT == ocp ]; then
   echo "ok	$(command -v oc)"
 fi
 
-# Validating for eks
 if [ $DEPLOYMENT == eks ]; then
+  echo "-----------------------------------------------------------------"
+  echo "Validating EKS pre-requisites"
+  echo "-----------------------------------------------------------------"
   echo -n "Validating AWS cli				"
   type aws &> /dev/null
   if [ $? -ne 0 ]; then
@@ -95,5 +113,5 @@ if [ $DEPLOYMENT == eks ]; then
 fi
   
 echo "-----------------------------------------------------------------"
-echo "           Validation of pre-requisites complete"
+echo "Validation of pre-requisites complete"
 echo "-----------------------------------------------------------------"

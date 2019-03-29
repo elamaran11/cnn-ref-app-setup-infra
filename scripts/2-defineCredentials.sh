@@ -1,7 +1,7 @@
 #!/bin/bash
 
 LOG_LOCATION=./logs
-exec > >(tee -i $LOG_LOCATION/defineCredentials.log)
+exec > >(tee -i $LOG_LOCATION/2-defineCredentials.log)
 exec 2>&1
 
 YLW='\033[1;33m'

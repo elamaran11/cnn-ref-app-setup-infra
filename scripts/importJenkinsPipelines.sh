@@ -1,5 +1,5 @@
 LOG_LOCATION=./logs
-exec > >(tee -i $LOG_LOCATION/importPipelines.log)
+exec > >(tee -i $LOG_LOCATION/importJenkinsPipelines.log)
 exec 2>&1
 
 YLW='\033[1;33m'
@@ -29,6 +29,7 @@ export JENKINS_PASSWORD=$(cat creds.json | jq -r '.jenkinsPassword')
 export JENKINS_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r .status.loadBalancer.ingress[].hostname)
 export JENKINS_URL_PORT=$(kubectl get service jenkins -n cicd -o=json | jq -r '.spec.ports[] | select(.name=="http") | .port')
 
+
 # clean up generated file.  dont delete the README!
 rm -f ../pipelines/gen/*.xml
 rm -f ../pipelines/gen/*.bak
@@ -46,10 +47,14 @@ else
   JOBLIST="deploy-staging deploy-production deploy-service load-test"
 fi
 
-# loop through a list of jobs and create them.  if already exists, delete it first
-echo 'Using GitHub Org as source of Jenkinsfiles : '$ORG
-echo 'Jenkins Server                             : 'http://$JENKINS_URL:$JENKINS_URL_PORT
+echo "----------------------------------------------------"
+echo "Creating Pipleine Jobs in Jenkins"
+echo "Source of Jenkinsfiles : http://gitbub.com/$ORG"
+echo "Jenkins Server         : http://$JENKINS_URL:$JENKINS_URL_PORT"
+echo "Job list to process    : $JOBLIST"
+echo "----------------------------------------------------"
 
+# loop through a list of jobs and create them.  if already exists, delete it first
 OSTYPE=$(uname -s)
 for JOB_NAME in $JOBLIST; do
 
