@@ -9,7 +9,6 @@ YLW='\033[1;33m'
 NC='\033[0m'
 
 type hub &> /dev/null
-
 if [ $? -ne 0 ]
 then
     echo "Please install the 'hub' command: https://hub.github.com/"
