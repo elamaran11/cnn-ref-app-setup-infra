@@ -51,7 +51,7 @@ if [ $DEPLOYMENT == ocp ]; then
   kubectl create -f https://raw.githubusercontent.com/Dynatrace/dynatrace-oneagent-operator/$DT_LATEST_RELEASE/deploy/openshift.yaml
   oc annotate namespace dynatrace openshift.io/node-selector=""
 else
-  kubectlcreate -f https://raw.githubusercontent.com/Dynatrace/dynatrace-oneagent-operator/$DT_LATEST_RELEASE/deploy/kubernetes.yaml
+  kubectl create -f https://raw.githubusercontent.com/Dynatrace/dynatrace-oneagent-operator/$DT_LATEST_RELEASE/deploy/kubernetes.yaml
 fi
 echo ""
 

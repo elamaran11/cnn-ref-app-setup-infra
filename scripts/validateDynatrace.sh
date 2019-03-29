@@ -53,5 +53,5 @@ then
     echo ""
     exit 1
 fi
-echo ""
 echo "Able to connect using Dynatrace API Token."
+echo ""

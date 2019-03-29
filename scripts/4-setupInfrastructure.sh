@@ -81,7 +81,7 @@ echo "Letting Jenkins restart [60 seconds] ..."
 sleep 60
 
 # add credentials
-.createJenkinsCredentials.sh
+./createJenkinsCredentials.sh
 
 # add Jenkins pipelines
 ./importJenkinsPipelines.sh $GITHUB_ORGANIZATION
