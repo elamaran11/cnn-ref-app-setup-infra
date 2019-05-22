@@ -1,0 +1,22 @@
+{
+    "deployment": "DEPLOYMENT_PLACEHOLDER",
+    "jenkinsPort": "24711",
+    "jenkinsUser": "admin",
+    "jenkinsPassword": "AiTx4u8VyUV8tCKk",
+    "dynatraceTenant": "DYNATRACE_TENANT_PLACEHOLDER",
+    "dynatraceApiToken": "DYNATRACE_API_TOKEN_PLACEHOLDER",
+    "dynatracePaaSToken": "DYNATRACE_PAAS_TOKEN_PLACEHOLDER",
+    "dynatraceHostName": "DYNATRACE_HOSTNAME_PLACEHOLDER",
+    "githubUserName": "GITHUB_USER_NAME_PLACEHOLDER",
+    "githubPersonalAccessToken": "PERSONAL_ACCESS_TOKEN_PLACEHOLDER",
+    "githubUserEmail": "GITHUB_USER_EMAIL_PLACEHOLDER",
+    "githubOrg": "GITHUB_ORG_PLACEHOLDER",
+    "resourcePrefix": "RESOURCE_PREFIX_PLACEHOLDER",
+    "registry": "robjahn",
+    "registryToken": "",
+    "azureSubscription": "AZURE_SUBSCRIPTION_PLACEHOLDER",
+    "azureLocation": "AZURE_LOCATION_PLACEHOLDER",
+    "gkeProject": "GKE_PROJECT_PLACEHOLDER",
+    "clusterZone": "CLUSTER_ZONE_PLACEHOLDER",
+    "clusterRegion": "CLUSTER_REGION_PLACEHOLDER"
+}
