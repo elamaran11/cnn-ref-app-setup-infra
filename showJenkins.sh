@@ -14,7 +14,7 @@ if [ $DEPLOYMENT == "aks" ]
 then 
   RESOURCE_PREFIX=$(cat creds.json | jq -r '.resourcePrefix')
   AZURE_LOCATION=$(cat creds.json | jq -r '.azureLocation')
-  JENKINS_URL="http://jenkins-$RESOURCE_PREFIX-dt-kube-demo.$AZURE_LOCATION.cloudapp.azure.com"
+  JENKINS_URL="jenkins-$RESOURCE_PREFIX-dt-kube-demo.$AZURE_LOCATION.cloudapp.azure.com"
 fi
 
 echo "--------------------------------------------------------------------------"
@@ -24,7 +24,7 @@ kubectl -n cicd get pods
 echo ""
 echo "--------------------------------------------------------------------------"
 echo "Jenkins is running @"
-echo "$JENKINS_URL:$JENKINS_PORT"
+echo "http://$JENKINS_URL:$JENKINS_PORT"
 echo "Admin user           : $JENKINS_USER"
 echo "Admin password       : $JENKINS_PASSWORD"
 echo ""
