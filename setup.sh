@@ -16,8 +16,8 @@ echo "===================================================="
 echo "1)  Install Prerequisites Tools"
 echo "2)  Enter Installation Script Inputs"
 echo "3)  Provision Kubernetes cluster"
-echo "4)  Setup Demo Services"
-echo "5)  Fork Application Repositories"
+echo "4)  Fork Application Repositories (optional)"
+echo "5)  Setup Demo Services (jenkins, dynatrace, namespaces)"
 echo "----------------------------------------------------"
 echo "10) Validate Kubectl"
 echo "11) Validate Prerequisite Tools"
@@ -49,12 +49,12 @@ while [ opt != "" ]
                 show_menu
                 ;;
         4)
-                ./4-setupDemo.sh $DEPLOYMENT 2>&1 | tee logs/4-setupDemo.log
+                GITHUB_ORGANIZATION=$(cat creds.json | jq -r '.githubOrg')
+                ./4-forkApplicationRepositories.sh $GITHUB_ORGANIZATION 2>&1 | tee logs/4-forkApplicationRepositories.log
                 show_menu
                 ;;
         5)
-                GITHUB_ORGANIZATION=$(cat creds.json | jq -r '.githubOrg')
-                ./5-forkApplicationRepositories.sh $GITHUB_ORGANIZATION 2>&1 | tee logs/5-forkApplicationRepositories.log
+                ./5-setupDemo.sh $DEPLOYMENT 2>&1 | tee logs/5-setupDemo.log
                 show_menu
                 ;;
         10)

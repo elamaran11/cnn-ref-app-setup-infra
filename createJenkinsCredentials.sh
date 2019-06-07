@@ -7,10 +7,10 @@ GITHUB_PERSONAL_ACCESS_TOKEN=$(cat creds.json | jq -r '.githubPersonalAccessToke
 DT_API_TOKEN=$(cat creds.json | jq -r '.dynatraceApiToken')
 JENKINS_URL_PORT=$(kubectl get service jenkins -n cicd -o=json | jq -r '.spec.ports[] | select(.name=="http") | .port')
 JENKINS_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r '.status.loadBalancer.ingress[].hostname | select (.!=null)')
-if [ -n "JENKINS_URL" ]
-then
-  JENKINS_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r '.status.loadBalancer.ingress[].ip')
-fi
+#if [ -n "JENKINS_URL" ]
+#then
+#  JENKINS_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r '.status.loadBalancer.ingress[].ip')
+#fi
 
 CRED_NAME=registry-creds
 echo "-----------------------------------------------------------------------------------"

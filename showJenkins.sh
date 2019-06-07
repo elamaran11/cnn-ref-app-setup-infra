@@ -5,10 +5,10 @@ JENKINS_USER=$(cat creds.json | jq -r '.jenkinsUser')
 JENKINS_PASSWORD=$(cat creds.json | jq -r '.jenkinsPassword')
 JENKINS_PORT=$(kubectl get service jenkins -n cicd -o=json | jq -r '.spec.ports[] | select(.name=="http") | .port' )
 JENKINS_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r '.status.loadBalancer.ingress[].hostname | select (.!=null)')
-if [ -n "JENKINS_URL" ]
-then
-  JENKINS_URL="http://$(kubectl get service jenkins -n cicd -o=json | jq -r '.status.loadBalancer.ingress[].ip')"
-fi
+#if [ -n "JENKINS_URL" ]
+#then
+#  JENKINS_URL="http://$(kubectl get service jenkins -n cicd -o=json | jq -r '.status.loadBalancer.ingress[].ip')"
+#fi
 
 if [ $DEPLOYMENT == "aks" ]
 then 

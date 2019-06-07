@@ -68,8 +68,8 @@ SETUP MENU
 1)  Install Prerequisites Tools
 2)  Enter Installation Script Inputs
 3)  Provision Kubernetes cluster
-4)  Setup Demo Services
-5)  Fork Application Repositories
+4)  Fork Application Repositories
+5)  Setup Demo Services
 ----------------------------------------------------
 10)  Validate Kubectl
 11)  Validate Prerequisite Tools
@@ -102,16 +102,7 @@ This will provision a Cluster on the specified cloud deployment type. This scrip
 
 This script at the end will run the 'Validate Kubectl' script.  
 
-## 4) Setup Demo Services
-
-This script will:
-* created staging & production namespaces for the orders app
-* install jenkins in the cicd namespaces and setup credentials, environment variables and configure the t-systems performance signature plug-in
-* install the Kubernetes Dynatrace Operator
-* setup autotagging rules in Dynatrace
-* import Jenkins jobs for deploying the application
-
-## 5) Fork Order application repositories
+## 4) Fork Order application repositories (optional)
 
 This is an optional step.  You would need to do this if you plan to build the docker images from source.
 
@@ -122,6 +113,15 @@ Internally, this script will:
 1. clone the orders application repositories
 1. use the ```hub``` unix git utility to fork each repositories
 1. push each repository to your personal github organization
+
+## 5) Setup Demo Services
+
+This script will:
+* created staging & production namespaces for the orders app
+* install jenkins in the cicd namespaces and setup credentials, environment variables and configure the t-systems performance signature plug-in
+* install the Kubernetes Dynatrace Operator
+* setup autotagging rules in Dynatrace
+* import Jenkins jobs for deploying the application
 
 # Other setup related scripts
 
