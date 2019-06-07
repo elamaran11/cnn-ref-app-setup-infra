@@ -102,9 +102,7 @@ This will provision a Cluster on the specified cloud deployment type. This scrip
 
 This script at the end will run the 'Validate Kubectl' script.  
 
-## 4) Fork Order application repositories (optional)
-
-This is an optional step.  You would need to do this if you plan to build the docker images from source.
+## 4) Fork Order application repositories
 
 This script will fork the orders application into the github organization you specified when you called 'Enter Installation Script Inputs' step.
 
