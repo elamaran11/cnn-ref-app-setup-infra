@@ -1,5 +1,10 @@
 #!/bin/bash
-
+# Ela
+RESOURCE_PREFIX=$(cat creds.json | jq -r '.resourcePrefix')
+AZURE_LOCATION=$(cat creds.json | jq -r '.azureLocation')
+DEPLOYMENT=$(cat creds.json | jq -r '.deployment')
+# Ela - Removed all reference to "HTTP:// and placed all JENKINS URL in double quotes"
+# Ela
 if [ -z $1 ]
 then
     echo "Please provide the target GitHub organization as parameter:"
@@ -22,7 +27,19 @@ fi
 export JENKINS_USER=$(cat creds.json | jq -r '.jenkinsUser')
 export JENKINS_PASSWORD=$(cat creds.json | jq -r '.jenkinsPassword')
 export JENKINS_URL_PORT=$(kubectl get service jenkins -n cicd -o=json | jq -r '.spec.ports[] | select(.name=="http") | .port')
-JENKINS_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r '.status.loadBalancer.ingress[].hostname | select (.!=null)')
+# Ela
+case $DEPLOYMENT in
+  aks)
+    JENKINS_URL="jenkins-$RESOURCE_PREFIX-dt-kube-demo.$AZURE_LOCATION.cloudapp.azure.com"
+    ;;
+  eks)
+    JENKINS_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r '.status.loadBalancer.ingress[].hostname | select (.!=null)')
+    ;;
+  gke)
+   JENKINS_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r '.status.loadBalancer.ingress[].hostname | select (.!=null)') 
+   ;;
+esac
+
 #if [ -n "JENKINS_URL" ]
 #then
 #  JENKINS_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r '.status.loadBalancer.ingress[].ip')
@@ -37,7 +54,7 @@ cp ./pipelines/deploy*.xml ./pipelines/gen/
 cp ./pipelines/load*.xml ./pipelines/gen/
 
 # have an optional argument for importing build pipelines. 
-if [ $2 = "build" ]
+if [ $2 == "build" ]
 then
   cp ./pipelines/build*.xml ./pipelines/gen/
   JOBLIST="build-order-service build-catalog-service build-customer-service build-front-end deploy-service deploy-staging deploy-production load-test"
@@ -68,10 +85,12 @@ for JOB_NAME in $JOBLIST; do
   status_code=$(curl --write-out %{http_code} --silent --output /dev/null http://$JENKINS_URL:$JENKINS_URL_PORT/job/$JOB_NAME/config.xml -u $JENKINS_USER:$JENKINS_PASSWORD)
   if [[ "$status_code" -eq 200 ]] ; then
     echo Removing existing job $JOB_NAME ...
-    curl -s -XPOST http://$JENKINS_URL:$JENKINS_URL_PORT/job/$JOB_NAME/doDelete -u $JENKINS_USER:$JENKINS_PASSWORD -H "Content-Type:text/xml"
+    curl -s -XPOST "$JENKINS_URL:$JENKINS_URL_PORT/job/$JOB_NAME/doDelete" -u $JENKINS_USER:$JENKINS_PASSWORD -H "Content-Type:text/xml"
   fi
 
   # add the job
   echo Creating job $JOB_NAME ...
-  curl -s -XPOST http://$JENKINS_URL:$JENKINS_URL_PORT/createItem?name=$JOB_NAME --user $JENKINS_USER:$JENKINS_PASSWORD --data-binary @./pipelines/gen/$JOB_NAME.xml -H "Content-Type:text/xml"
+  #Ela
+  curl -s -XPOST "$JENKINS_URL:$JENKINS_URL_PORT/createItem?name=$JOB_NAME" --user $JENKINS_USER:$JENKINS_PASSWORD --data-binary @/pipelines/gen/$JOB_NAME.xml -H "Content-Type:text/xml"
+  #Ela
 done

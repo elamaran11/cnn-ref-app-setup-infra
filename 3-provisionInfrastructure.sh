@@ -19,8 +19,7 @@ case $DEPLOYMENT in
     exit 1
     ;;
   gke)
-    echo "Deploy for $DEPLOYMENT not supported"
-    #./provisionGke.sh
+    ./provisionGke.sh
     ;;
 esac
 

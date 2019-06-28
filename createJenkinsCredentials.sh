@@ -1,12 +1,30 @@
 #!/bin/bash
-
+# Ela
+RESOURCE_PREFIX=$(cat creds.json | jq -r '.resourcePrefix')
+AZURE_LOCATION=$(cat creds.json | jq -r '.azureLocation')
+DEPLOYMENT=$(cat creds.json | jq -r '.deployment')
+# Ela - Removed all reference to "HTTP:// and placed all JENKINS URL in double quotes"
+# Ela
 JENKINS_USER=$(cat creds.json | jq -r '.jenkinsUser')
 JENKINS_PASSWORD=$(cat creds.json | jq -r '.jenkinsPassword')
 GITHUB_USER_NAME=$(cat creds.json | jq -r '.githubUserName')
 GITHUB_PERSONAL_ACCESS_TOKEN=$(cat creds.json | jq -r '.githubPersonalAccessToken')
 DT_API_TOKEN=$(cat creds.json | jq -r '.dynatraceApiToken')
 JENKINS_URL_PORT=$(kubectl get service jenkins -n cicd -o=json | jq -r '.spec.ports[] | select(.name=="http") | .port')
-JENKINS_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r '.status.loadBalancer.ingress[].hostname | select (.!=null)')
+# Ela
+case $DEPLOYMENT in
+  aks)
+    JENKINS_URL="jenkins-$RESOURCE_PREFIX-dt-kube-demo.$AZURE_LOCATION.cloudapp.azure.com"
+    ;;
+  eks)
+    JENKINS_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r '.status.loadBalancer.ingress[].hostname | select (.!=null)')
+    ;;
+  gke)
+   JENKINS_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r '.status.loadBalancer.ingress[].hostname | select (.!=null)') 
+   ;;
+esac
+
+# Ela
 #if [ -n "JENKINS_URL" ]
 #then
 #  JENKINS_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r '.status.loadBalancer.ingress[].ip')
@@ -19,20 +37,20 @@ echo "--------------------------------------------------------------------------
 echo "----------------------------------------------------"
 echo "Checking if $CRED_NAME exists ..."
 echo "----------------------------------------------------"
-CRED_URL="http://$JENKINS_URL:$JENKINS_URL_PORT/credentials/store/system/domain/_/credential/$CRED_NAME/config.xml"
+CRED_URL="$JENKINS_URL:$JENKINS_URL_PORT/credentials/store/system/domain/_/credential/$CRED_NAME/config.xml"
 if [ "$(curl -sL -w '%{http_code}' $CRED_URL -o /dev/null)" == "200" ]
 then
   echo "----------------------------------------------------"
   echo "Deleting $CRED_NAME since exists ..."
   echo "----------------------------------------------------"
-  curl -X POST http://$JENKINS_URL:$JENKINS_URL_PORT/credentials/store/system/domain/_/credential/$CRED_NAME/doDelete \
+  curl -X POST "$JENKINS_URL:$JENKINS_URL_PORT/credentials/store/system/domain/_/credential/$CRED_NAME/doDelete" \
   --user $JENKINS_USER:$JENKINS_PASSWORD
 fi
 
 echo "----------------------------------------------------"
 echo "Adding $CRED_NAME ..."
 echo "----------------------------------------------------"
-curl -X POST http://$JENKINS_URL:$JENKINS_URL_PORT/credentials/store/system/domain/_/createCredentials \
+curl -X POST "$JENKINS_URL:$JENKINS_URL_PORT/credentials/store/system/domain/_/createCredentials" \
 --user $JENKINS_USER:$JENKINS_PASSWORD \
 --data-urlencode 'json={
   "": "0",
@@ -53,13 +71,13 @@ echo "--------------------------------------------------------------------------
 echo "----------------------------------------------------"
 echo "Checking if $CRED_NAME exists ..."
 echo "----------------------------------------------------"
-CRED_URL="http://$JENKINS_URL:$JENKINS_URL_PORT/credentials/store/system/domain/_/credential/$CRED_NAME/config.xml"
+CRED_URL="$JENKINS_URL:$JENKINS_URL_PORT/credentials/store/system/domain/_/credential/$CRED_NAME/config.xml"
 if [ "$(curl -sL -w '%{http_code}' $CRED_URL -o /dev/null)" == "200" ]
 then
   echo "----------------------------------------------------"
   echo "Deleting $CRED_NAME since exists ..."
   echo "----------------------------------------------------"
-  curl -X POST http://$JENKINS_URL:$JENKINS_URL_PORT/credentials/store/system/domain/_/credential/$CRED_NAME/doDelete \
+  curl -X POST "$JENKINS_URL:$JENKINS_URL_PORT/credentials/store/system/domain/_/credential/$CRED_NAME/doDelete" \
   --user $JENKINS_USER:$JENKINS_PASSWORD
 fi
 
@@ -67,7 +85,7 @@ echo "----------------------------------------------------"
 echo "Adding $CRED_NAME ..."
 echo "----------------------------------------------------"
 echo "Creating Credential 'git-credentials-acm' within Jenkins ..."
-curl -X POST http://$JENKINS_URL:$JENKINS_URL_PORT/credentials/store/system/domain/_/createCredentials --user $JENKINS_USER:$JENKINS_PASSWORD \
+curl -X POST "$JENKINS_URL:$JENKINS_URL_PORT/credentials/store/system/domain/_/createCredentials" --user $JENKINS_USER:$JENKINS_PASSWORD \
 --data-urlencode 'json={
   "": "0",
   "credentials": {
@@ -87,13 +105,13 @@ echo "--------------------------------------------------------------------------
 echo "----------------------------------------------------"
 echo "Checking if $CRED_NAME exists ..."
 echo "----------------------------------------------------"
-CRED_URL="http://$JENKINS_URL:$JENKINS_URL_PORT/credentials/store/system/domain/_/credential/$CRED_NAME/config.xml"
+CRED_URL="$JENKINS_URL:$JENKINS_URL_PORT/credentials/store/system/domain/_/credential/$CRED_NAME/config.xml"
 if [ "$(curl -sL -w '%{http_code}' $CRED_URL -o /dev/null)" == "200" ]
 then
   echo "----------------------------------------------------"
   echo "Deleting $CRED_NAME since exists ..."
   echo "----------------------------------------------------"
-  curl -X POST http://$JENKINS_URL:$JENKINS_URL_PORT/credentials/store/system/domain/_/credential/$CRED_NAME/doDelete \
+  curl -X POST "$JENKINS_URL:$JENKINS_URL_PORT/credentials/store/system/domain/_/credential/$CRED_NAME/doDelete" \
   --user $JENKINS_USER:$JENKINS_PASSWORD
 fi
 
@@ -101,7 +119,7 @@ echo "----------------------------------------------------"
 echo "Adding $CRED_NAME ..."
 echo "----------------------------------------------------"
 echo "Creating Credential 'perfsig-api-token' within Jenkins ..."
-curl -X POST http://$JENKINS_URL:$JENKINS_URL_PORT/credentials/store/system/domain/_/createCredentials --user $JENKINS_USER:$JENKINS_PASSWORD \
+curl -X POST "$JENKINS_URL:$JENKINS_URL_PORT/credentials/store/system/domain/_/createCredentials" --user $JENKINS_USER:$JENKINS_PASSWORD \
 --data-urlencode 'json={
   "": "0",
   "credentials": {

@@ -37,10 +37,16 @@ export VM_NAME="$RESOURCE_PREFIX"-dt-kube-demo-bastion
 # provision the host
 az group create --name $VM_GROUP_NAME --location $VM_GROUP_LOCATION
 
+export VM_GROUP_NAME=eto-all-devtest-netrouting-rg
+export VM_VNET_NAME=eto-all-devtest-netrouting-vnt
+export VM_SUBNET_NAME=tla1-snt
+
 # create the VM
 az vm create \
   --name $VM_NAME \
   --resource-group $VM_GROUP_NAME \
+  --subnet $VM_SUBNET_NAME \
+  --vnet-name $VM_VNET_NAME \
   --size Standard_B1s \
   --image Canonical:UbuntuServer:16.04-LTS:latest \
   --generate-ssh-keys \
