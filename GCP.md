@@ -45,10 +45,9 @@ export VM_TYPE=f1-micro
 export VM_NAME_SSH="$VM_NAME"-ssh
 export VM_NAME_FWD="$VM_NAME"-fwd
 export YOUR_IP=<Your IP>
-export IMAGE_FAMILY=<Image Family>
 
 # Create the Bastion Host
-gcloud compute --project=$PROJECT_ID instances create $VM_NAME --zone=$VM_LOCATION --machine-type=$VM_TYPE --subnet=default --no-address --maintenance-policy=MIGRATE --no-service-account --no-scopes --tags=$VM_NAME --image-family=$IMAGE_FAMILY --image-project debian-cloud --boot-disk-size=10GB --boot-disk-type=pd-standard --boot-disk-device-name=$VM_NAME
+gcloud compute --project=$PROJECT_ID instances create $VM_NAME --zone=$VM_LOCATION --machine-type=$VM_TYPE --subnet=default --no-address --maintenance-policy=MIGRATE --no-service-account --no-scopes --tags=$VM_NAME --image-family=ubuntu-1604-lts --image-project ubuntu-os-cloud --boot-disk-size=10GB --boot-disk-type=pd-standard --boot-disk-device-name=$VM_NAME
 
 # Create Firewall rule to allow ssh from your IP only
 
