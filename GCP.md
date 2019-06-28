@@ -61,7 +61,7 @@ gcloud compute --project=$PROJECT_ID firewall-rules create $VM_NAME_FWD --direct
 
 ## 3. SSH bastion host
 
-Goto the GCP console and Connect Menu to find the command to SSH to the Bastion Host.
+Goto the GCP console and Connect Menu to find the command to SSH to the GCP bastion host.
 ```
 
 ## 4. Clone the Orders setup repo

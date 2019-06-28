@@ -22,6 +22,7 @@ Footnotes:
 1. Cloud provider account.  Highly recommend to sign up for personal free trial as to have full admin rights and to not cause any issues with your enterprise account. Links to free trials
    * AWS - https://aws.amazon.com/free/
    * Azure - https://azure.microsoft.com/en-us/free/
+   * GCP - https://cloud.google.com/free/
 
 ## 2. Tools
 
@@ -42,11 +43,15 @@ AWS additional tools
 Azure additional tools
 * az - [CLI for Azure](https://docs.microsoft.com/en-us/cli/azure/?view=azure-cli-latest)
 
+GCP additional tools
+* gcloud CLI is available in https://cloud.google.com/sdk/
+
 # Bastion host setup
 
 See these instructions for provisioning an ubuntu 16.04 LTS host on the targeted cloud provider.
 * [AWS EC2 instance](AWS.md) 
 * [Azure VM instance](AZURE.md) 
+* [GCP VM instane](GCP.md) 
 
 # Provision Cluster and onboard the Orders application
 
@@ -57,6 +62,7 @@ There are multiple scripts used for the setup and they must be run the right ord
 NOTE: Valid 'deployment type' argument values are:
 * eks = AWS
 * aks = Azure
+* gke = GCP
 
 NOTE: The ```setup.sh``` script will set your 'deployment type' selection into creds.json file so that you don't have to keep typing it in each time.
 

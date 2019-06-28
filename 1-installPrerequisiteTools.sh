@@ -22,6 +22,7 @@ EKS_EKSCTL_VERSION=latest_release
 # aks
 # az aks get-versions --location eastus --output table
 AKS_KUBECTL_VERSION=1.12.7
+GKE_KUBECTL_VERSION=1.13
 
 clear
 echo "======================================================================"
@@ -43,6 +44,9 @@ case $DEPLOYMENT in
     ;;
   aks)
     echo "  AKS_KUBECTL_VERSION           : $AKS_KUBECTL_VERSION"
+    ;;
+  gke)
+    echo "  GKE_KUBECTL_VERSION           : $GKE_KUBECTL_VERSION"
     ;;
 esac
 echo "======================================================================"
