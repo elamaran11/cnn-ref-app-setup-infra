@@ -36,7 +36,7 @@ case $DEPLOYMENT in
     JENKINS_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r '.status.loadBalancer.ingress[].hostname | select (.!=null)')
     ;;
   gke)
-   JENKINS_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r '.status.loadBalancer.ingress[].hostname | select (.!=null)') 
+   JENKINS_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r '.status.loadBalancer.ingress[].ip | select (.!=null)') 
    ;;
 esac
 
@@ -91,6 +91,6 @@ for JOB_NAME in $JOBLIST; do
   # add the job
   echo Creating job $JOB_NAME ...
   #Ela
-  curl -s -XPOST "$JENKINS_URL:$JENKINS_URL_PORT/createItem?name=$JOB_NAME" --user $JENKINS_USER:$JENKINS_PASSWORD --data-binary @/pipelines/gen/$JOB_NAME.xml -H "Content-Type:text/xml"
+  curl -s -XPOST "$JENKINS_URL:$JENKINS_URL_PORT/createItem?name=$JOB_NAME" --user $JENKINS_USER:$JENKINS_PASSWORD --data-binary @./pipelines/gen/$JOB_NAME.xml -H "Content-Type:text/xml"
   #Ela
 done
