@@ -43,7 +43,11 @@ export VM_LOCATION=us-east1-b
 export VM_NAME="$RESOURCE_PREFIX"-dt-kube-demo-bastion
 export VM_TYPE=f1-micro
 export VM_NAME_SSH="$VM_NAME"-ssh
+export VM_NAME_HTTP="$VM_NAME"-http
+export VM_NAME_HTTPS="$VM_NAME"-https
 export VM_NAME_FWD="$VM_NAME"-fwd
+export VM_NAME_ADDRESS="$VM_NAME"-address
+export VM_NAME_CONFIG="$VM_NAME"-config
 export YOUR_IP=<Your IP>
 
 # Create the Bastion Host
@@ -56,6 +60,19 @@ gcloud compute --project=$PROJECT_ID firewall-rules create $VM_NAME_SSH --direct
 # Create Firewall rule to allow traffic from the bastion to all other instances
 
 gcloud compute --project=$PROJECT_ID firewall-rules create $VM_NAME_FWD --direction=INGRESS --priority=1000 --network=default --action=ALLOW --rules=all --source-tags=$VM_NAME
+
+# Create a NAT Instance and Config for Bastion host to access internet :
+gcloud compute routers create nat-router \
+    --network  default \
+    --region VM_LOCATION \
+    -- project $PROJECT_ID
+
+gcloud compute routers nats create nat-config \
+    --router-region VM_LOCATION \
+    --router nat-router \
+    --nat-all-subnet-ip-ranges \
+    --auto-allocate-nat-external-ips 
+
 ```
 
 ## 3. SSH bastion host
@@ -105,5 +122,12 @@ gcloud compute images list
 # firewall-rule list
 gcloud compute firewall-rules list
 
+# Addresses List
+gcloud compute addresses list
+
+# Org & Policy List
+gcloud organizations list
+gcloud beta resource-manager org-policies list --organization <Your Organization>
+gcloud beta resource-manager org-policies list --project <YOUR PROJECT>
+
 ```
-gcloud compute --project=$PROJECT_ID instances create bastion --zone=$VM_LOCATION --machine-type=$VM_TYPE --subnet=default --no-address --maintenance-policy=MIGRATE --no-service-account --no-scopes --tags=$VM_NAME --image-family=$IMAGE_FAMILY --image-project debian-cloud --boot-disk-size=10GB --boot-disk-type=pd-standard --boot-disk-device-name=$VM_NAME

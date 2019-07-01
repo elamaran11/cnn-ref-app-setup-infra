@@ -19,7 +19,7 @@ echo "------------------------------------------------------"
 echo "Creating GKE Cluster: $CLUSTER_NAME"
 echo "------------------------------------------------------"
 gcloud container clusters create $CLUSTER_NAME \
-  --project=$GKE_PROJECT
+  --project=$GKE_PROJECT \
   --machine-type n1-standard-2 \
   --num-nodes 3 \
   --zone $CLUSTER_ZONE \
