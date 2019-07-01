@@ -20,7 +20,7 @@ case $DEPLOYMENT in
     JENKINS_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r '.status.loadBalancer.ingress[].hostname | select (.!=null)')
     ;;
   gke)
-   JENKINS_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r '.status.loadBalancer.ingress[].hostname | select (.!=null)') 
+   JENKINS_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r '.status.loadBalancer.ingress[].ip | select (.!=null)') 
    ;;
 esac
 
