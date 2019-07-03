@@ -19,7 +19,6 @@ then
   exit 1
 fi
 
-
 # validate that have kubectl configured first
 ./validateKubectl.sh
 if [ $? -ne 0 ]
