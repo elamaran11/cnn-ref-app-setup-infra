@@ -17,6 +17,11 @@ then
   JENKINS_URL="jenkins-$RESOURCE_PREFIX-dt-kube-demo.$AZURE_LOCATION.cloudapp.azure.com"
 fi
 
+if [ $DEPLOYMENT == "gke" ]
+then 
+  JENKINS_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r '.status.loadBalancer.ingress[].ip | select (.!=null)')
+fi
+
 echo "--------------------------------------------------------------------------"
 echo "kubectl -n cicd get pods"
 echo "--------------------------------------------------------------------------"

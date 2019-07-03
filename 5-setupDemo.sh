@@ -13,13 +13,12 @@ then
 fi
 
 # validate that have dynatrace configured properly
-# Ela - Supressing Dynatrace
-# ./validateDynatrace.sh
-# if [ $? -ne 0 ]
-# then
-#   exit 1
-# fi
-#Ela - End of Supression
+./validateDynatrace.sh
+if [ $? -ne 0 ]
+then
+  exit 1
+fi
+
 
 # validate that have kubectl configured first
 ./validateKubectl.sh
@@ -58,16 +57,15 @@ sleep 150
 
 # add Jenkins pipelines
 ./importJenkinsBuildPipelines.sh $GITHUB_ORGANIZATION
-# Ela - Supressing Dynatrace
+
 # add Dynatrace Operator
 ./installDynatrace.sh $DEPLOYMENT
 
 # add Dynatrace Tagging rules
 ./applyAutoTaggingRules.sh
-#echo "----------------------------------------------------"
-#echo "Letting Dynatrace tagging rules be applied [150 seconds] ..."
-#sleep 150
-# Ela - End of Dynatrace supression.
+echo "----------------------------------------------------"
+echo "Letting Dynatrace tagging rules be applied [150 seconds] ..."
+sleep 150
 
 echo "===================================================="
 echo "Finished setting up demo app infrastructure "
