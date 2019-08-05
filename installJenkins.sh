@@ -10,12 +10,21 @@ export GITHUB_ORGANIZATION=$(cat creds.json | jq -r '.githubOrg')
 export REGISTRY_URL=$(cat creds.json | jq -r '.registry')
 export DT_API_TOKEN=$(cat creds.json | jq -r '.dynatraceApiToken')
 export DT_TENANT_HOSTNAME=$(cat creds.json | jq -r '.dynatraceHostName')
-
+export PRIVATE_DOCKER_REPO_FLAG=$(cat creds.json | jq -r '.privateDockerRepoFlag')
 echo "----------------------------------------------------"
 echo "Deploying Jenkins ..."
 rm -f ./manifests/gen/k8s-jenkins-deployment.yml
 
 mkdir -p ./manifests/gen
+
+if [[ $PRIVATE_DOCKER_REPO_FLAG =~ ^[Yy]$ ]]
+then 
+  kubectl create -f ./manifests/docker-registry/k8s-docker-registry-pvc.yml 
+  kubectl create -f ./manifests/docker-registry/k8s-docker-registry-deployment.yml
+  kubectl create -f ./manifests/docker-registry/k8s-docker-registry-service.yml  
+  REGISTRY_URL=""
+  REGISTRY_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r '.status.loadBalancer.ingress[].ip | select (.!=null)'):5000
+fi
 
 case $DEPLOYMENT in
   ocp)

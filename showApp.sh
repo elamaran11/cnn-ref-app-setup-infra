@@ -12,6 +12,12 @@ then
   PRODUCTION_URL="http://production-$RESOURCE_PREFIX-dt-kube-demo.$AZURE_LOCATION.cloudapp.azure.com"
 fi
 
+if [ $DEPLOYMENT == "gke" ]
+then 
+  STAGING_URL=$(kubectl -n staging get svc front-end -o json | jq -r '.status.loadBalancer.ingress[0].ip')
+  PRODUCTION_URL=$(kubectl -n production get svc front-end -o json | jq -r '.status.loadBalancer.ingress[0].ip')
+fi
+
 echo "--------------------------------------------------------------------------"
 echo "Staging    : http://$STAGING_URL"
 echo "Production : http://$PRODUCTION_URL"

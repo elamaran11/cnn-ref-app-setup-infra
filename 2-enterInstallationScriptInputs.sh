@@ -31,6 +31,8 @@ then
     AZURE_LOCATION=$(cat creds.json | jq -r '.azureLocation')
 
     GKE_PROJECT=$(cat creds.json | jq -r '.gkeProject')
+    PRIVATE_DOCKER_REPO_FLAG=$(cat creds.json | jq -r '.privateDockerRepoFlag')
+
 fi
 
 clear
@@ -65,6 +67,7 @@ case $DEPLOYMENT in
   ocp)
     ;;
 esac
+read -p "Private Docker Repo (Y/N) : " PRIVATE_DOCKER_REPO_NEW
 echo "==================================================================="
 echo ""
 # set value to new input or default to current value
@@ -84,6 +87,7 @@ RESOURCE_PREFIX=${RESOURCE_PREFIX_NEW:-$RESOURCE_PREFIX}
 # gke specific
 GKE_PROJECT=${GKE_PROJECT_NEW:-$GKE_PROJECT}
 CLUSTER_ZONE=${CLUSTER_ZONE_NEW:-$CLUSTER_ZONE}
+PRIVATE_DOCKER_REPO=${PRIVATE_DOCKER_REPO_NEW:-$PRIVATE_DOCKER_REPO}
 
 echo -e "Please confirm all are correct:"
 echo ""
@@ -113,6 +117,7 @@ case $DEPLOYMENT in
   ocp)
     ;;
 esac
+echo "Private Docker Repo Flag      : $PRIVATE_DOCKER_REPO"
 echo "==================================================================="
 read -p "Is this all correct? (y/n) : " -n 1 -r
 echo ""
@@ -161,6 +166,7 @@ then
       ocp)
         ;;
     esac
+    sed 's~PRIVATE_DOCKER_REPO_PLACEHOLDER~'"$PRIVATE_DOCKER_REPO"'~' > $CREDS 
     echo ""
     echo "The updated credentials file can be found here: $CREDS"
     echo ""
