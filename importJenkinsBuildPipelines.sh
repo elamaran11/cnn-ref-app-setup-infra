@@ -2,6 +2,8 @@
 # Ela
 RESOURCE_PREFIX=$(cat creds.json | jq -r '.resourcePrefix')
 AZURE_LOCATION=$(cat creds.json | jq -r '.azureLocation')
+export PRIVATE_DOCKER_REPO_FLAG=$(cat creds.json | jq -r '.privateDockerRepoFlag')
+export REGISTRY_URL=$(cat creds.json | jq -r '.registry')
 DEPLOYMENT=$(cat creds.json | jq -r '.deployment')
 # Ela - Removed all reference to "HTTP:// and placed all JENKINS URL in double quotes"
 # Ela
@@ -68,16 +70,14 @@ echo "Source of Jenkinsfiles : http://github.com/$ORG"
 echo "Jenkins Server         : http://$JENKINS_URL:$JENKINS_URL_PORT"
 echo "Job list to process    : $JOBLIST"
 echo "----------------------------------------------------"
-REGISTRY_URL=""
-REGISTRY_IP=$(kubectl get service docker-registry -n cicd -o=json | jq -r '.spec.clusterIP | select (.!=null)')
-REGISTRY_PORT=$(kubectl get service docker-registry -n cicd -o=json | jq -r '.spec.ports[] | select (.!=null) | .port')
-REGISTRY_URL=$REGISTRY_IP:$REGISTRY_PORT
-
-echo $REGISTRY_URL
-
-
-
-
+if [[ $PRIVATE_DOCKER_REPO_FLAG =~ ^[Yy]$ ]]
+then  
+  REGISTRY_URL=""
+  REGISTRY_IP=$(kubectl get service docker-registry -n cicd -o=json | jq -r '.spec.clusterIP | select (.!=null)')
+  REGISTRY_PORT=$(kubectl get service docker-registry -n cicd -o=json | jq -r '.spec.ports[] | select (.!=null) | .port')
+  REGISTRY_URL=$REGISTRY_IP:$REGISTRY_PORT
+  echo $REGISTRY_URL
+fi
 # loop through a list of jobs and create them.  if already exists, delete it first
 OSTYPE=$(uname -s)
 for JOB_NAME in $JOBLIST; do
