@@ -69,9 +69,13 @@ while [ opt != "" ]
                 ;;
         90)
                 kubectl delete namespace Staging
+                clear
+                show_menu
                 ;;               
         91)
                 kubectl delete namespace production
+                clear
+                show_menu
                 ;;               
         99)
                 ./deleteInfrastructure.sh $DEPLOYMENT 2>&1 | tee logs/deleteInfrastructure.log
