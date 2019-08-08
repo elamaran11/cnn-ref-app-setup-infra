@@ -68,6 +68,15 @@ echo "Source of Jenkinsfiles : http://github.com/$ORG"
 echo "Jenkins Server         : http://$JENKINS_URL:$JENKINS_URL_PORT"
 echo "Job list to process    : $JOBLIST"
 echo "----------------------------------------------------"
+REGISTRY_URL=""
+REGISTRY_IP=$(kubectl get service docker-registry -n cicd -o=json | jq -r '.spec.clusterIP | select (.!=null)')
+REGISTRY_PORT=$(kubectl get service docker-registry -n cicd -o=json | jq -r '.spec.ports[] | select (.!=null) | .port')
+REGISTRY_URL=$REGISTRY_IP:$REGISTRY_PORT
+
+echo $REGISTRY_URL
+
+
+
 
 # loop through a list of jobs and create them.  if already exists, delete it first
 OSTYPE=$(uname -s)
@@ -77,8 +86,10 @@ for JOB_NAME in $JOBLIST; do
   # NOTE: Mac requires the name of backup file as an argument, Linux does not
   if [ $OSTYPE = "Darwin" ]; then
     sed -i .bak s/ORG_PLACEHOLDER/$ORG/g ./pipelines/gen/$JOB_NAME.xml
+    sed -i .bak s/DOCKER_REGISTRY/$REGISTRY_URL/g ./pipelines/gen/$JOB_NAME.xml
   else
     sed -i s/ORG_PLACEHOLDER/$ORG/g ./pipelines/gen/$JOB_NAME.xml
+    sed -i s/DOCKER_REGISTRY/$REGISTRY_URL/g ./pipelines/gen/$JOB_NAME.xml
   fi
 
   # determine if need to delete job first

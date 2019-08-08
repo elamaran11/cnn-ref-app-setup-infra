@@ -46,7 +46,7 @@
         <hudson.model.StringParameterDefinition>
           <name>registry</name>
           <description>Dockerhub account with Docker Images</description>
-          <defaultValue>docker-registry</defaultValue>
+          <defaultValue>DOCKER_REGISTRY</defaultValue>
           <trim>false</trim>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
