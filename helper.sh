@@ -9,7 +9,7 @@ echo "HELPER MENU"
 echo "===================================================="
 echo "1) show App"
 echo "2) show Jenkins"
-echo "3) show Dyntrace"
+#echo "3) show Dyntrace"
 echo "===================================================="
 echo "Please enter your choice or <q> or <return> to exit"
 read opt
@@ -32,10 +32,10 @@ while [ opt != "" ]
            ./showJenkins.sh  2>&1 | tee logs/showJenkins.log
            show_menu
            ;;
-        3)
-           ./showDynatrace.sh  2>&1 | tee logs/showDynatrace.log
-           show_menu
-           ;;
+#        3)
+#           ./showDynatrace.sh  2>&1 | tee logs/showDynatrace.log
+#           show_menu
+#           ;;
         q)
            break
            ;;

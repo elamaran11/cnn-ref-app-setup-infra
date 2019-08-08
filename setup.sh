@@ -16,12 +16,14 @@ echo "===================================================="
 echo "1)  Install Prerequisites Tools"
 echo "2)  Enter Installation Script Inputs"
 echo "3)  Provision Kubernetes cluster"
-echo "4)  Fork Application Repositories"
-echo "5)  Setup Demo Services (jenkins, dynatrace, namespaces)"
+//echo "4)  Fork Application Repositories"
+echo "4)  Setup Demo Services (jenkins, dynatrace, namespaces)"
 echo "----------------------------------------------------"
 echo "10) Validate Kubectl"
 echo "11) Validate Prerequisite Tools"
 echo "----------------------------------------------------"
+echo "90) Delete Staging App"
+echo "90) Delete Production App"
 echo "99) Delete Kubernetes cluster"
 echo "===================================================="
 echo "Please enter your choice or <q> or <return> to exit"
@@ -48,12 +50,12 @@ while [ opt != "" ]
                 ./3-provisionInfrastructure.sh $DEPLOYMENT  2>&1 | tee logs/3-provisionInfrastructure.log
                 show_menu
                 ;;
+        #4)
+        #        GITHUB_ORGANIZATION=$(cat creds.json | jq -r '.githubOrg')
+        #        ./4-forkApplicationRepositories.sh $GITHUB_ORGANIZATION 2>&1 | tee logs/4-forkApplicationRepositories.log
+        #        show_menu
+        #        ;;
         4)
-                GITHUB_ORGANIZATION=$(cat creds.json | jq -r '.githubOrg')
-                ./4-forkApplicationRepositories.sh $GITHUB_ORGANIZATION 2>&1 | tee logs/4-forkApplicationRepositories.log
-                show_menu
-                ;;
-        5)
                 ./5-setupDemo.sh $DEPLOYMENT 2>&1 | tee logs/5-setupDemo.log
                 show_menu
                 ;;
@@ -65,6 +67,12 @@ while [ opt != "" ]
                 ./validatePrerequisiteTools.sh $DEPLOYMENT 2>&1 | tee logs/validatePrerequisiteTools.log
                 show_menu
                 ;;
+        90)
+                kubectl delete namespace Staging
+                ;;               
+        91)
+                kubectl delete namespace production
+                ;;               
         99)
                 ./deleteInfrastructure.sh $DEPLOYMENT 2>&1 | tee logs/deleteInfrastructure.log
                 show_menu
