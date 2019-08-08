@@ -23,7 +23,10 @@ then
   kubectl create -f ./manifests/docker-registry/k8s-docker-registry-deployment.yml
   kubectl create -f ./manifests/docker-registry/k8s-docker-registry-service.yml  
   REGISTRY_URL=""
-  REGISTRY_URL=$(kubectl get service jenkins -n cicd -o=json | jq -r '.status.loadBalancer.ingress[].ip | select (.!=null)'):5000
+  REGISTRY_IP=$(kubectl get service docker-registry -n cicd -o=json | jq -r '.spec.clusterIP | select (.!=null)')
+  REGISTRY_PORT=$(kubectl get service docker-registry -n cicd -o=json | jq -r '.spec.ports[] | select (.!=null) | .port')
+  REGISTRY_URL=$REGISTRY_IP:$REGISTRY_PORT
+  echo $REGISTRY_URL
 fi
 
 case $DEPLOYMENT in

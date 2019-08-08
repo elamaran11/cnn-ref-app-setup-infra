@@ -18,6 +18,6 @@
     "azureLocation": "AZURE_LOCATION_PLACEHOLDER",
     "gkeProject": "GKE_PROJECT_PLACEHOLDER",
     "clusterZone": "CLUSTER_ZONE_PLACEHOLDER",
-    "clusterRegion": "CLUSTER_REGION_PLACEHOLDER"
+    "clusterRegion": "CLUSTER_REGION_PLACEHOLDER",
     "privateDockerRepoFlag": "PRIVATE_DOCKER_REPO_PLACEHOLDER"
 }

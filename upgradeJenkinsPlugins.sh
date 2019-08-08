@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export JENKINS_POD=$(kubectl get pods -n cicd -o=json | jq -r .items[].metadata.name)
+export JENKINS_POD=$(kubectl get pods -l app=jenkins -n cicd -o=json | jq -r .items[].metadata.name)
 export JENKINS_USER=$(cat creds.json | jq -r '.jenkinsUser')
 export JENKINS_PASSWORD=$(cat creds.json | jq -r '.jenkinsPassword')
 

@@ -139,6 +139,7 @@ then
       sed 's~PERSONAL_ACCESS_TOKEN_PLACEHOLDER~'"$GITHUB_PERSONAL_ACCESS_TOKEN"'~' | \
       sed 's~GITHUB_USER_EMAIL_PLACEHOLDER~'"$GITHUB_USER_EMAIL"'~' | \
       sed 's~GITHUB_ORG_PLACEHOLDER~'"$GITHUB_ORGANIZATION"'~' | \
+      sed 's~PRIVATE_DOCKER_REPO_PLACEHOLDER~'"$PRIVATE_DOCKER_REPO"'~' | \
       sed 's~RESOURCE_PREFIX_PLACEHOLDER~'"$RESOURCE_PREFIX"'~' > $CREDS
 
     case $DEPLOYMENT in
@@ -166,7 +167,6 @@ then
       ocp)
         ;;
     esac
-    sed 's~PRIVATE_DOCKER_REPO_PLACEHOLDER~'"$PRIVATE_DOCKER_REPO"'~' > $CREDS 
     echo ""
     echo "The updated credentials file can be found here: $CREDS"
     echo ""

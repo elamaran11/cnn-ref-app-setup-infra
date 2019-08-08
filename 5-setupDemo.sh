@@ -13,11 +13,11 @@ then
 fi
 
 # validate that have dynatrace configured properly
-./validateDynatrace.sh
-if [ $? -ne 0 ]
-then
-  exit 1
-fi
+#./validateDynatrace.sh
+#if [ $? -ne 0 ]
+#then
+#  exit 1
+#fi
 
 # validate that have kubectl configured first
 ./validateKubectl.sh
@@ -58,13 +58,13 @@ sleep 150
 ./importJenkinsBuildPipelines.sh $GITHUB_ORGANIZATION build
 
 # add Dynatrace Operator
-./installDynatrace.sh $DEPLOYMENT
+#./installDynatrace.sh $DEPLOYMENT
 
 # add Dynatrace Tagging rules
-./applyAutoTaggingRules.sh
+#./applyAutoTaggingRules.sh
 echo "----------------------------------------------------"
 echo "Letting Dynatrace tagging rules be applied [150 seconds] ..."
-sleep 150
+#sleep 150
 
 echo "===================================================="
 echo "Finished setting up demo app infrastructure "
