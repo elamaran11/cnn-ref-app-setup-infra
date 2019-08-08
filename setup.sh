@@ -23,7 +23,7 @@ echo "10) Validate Kubectl"
 echo "11) Validate Prerequisite Tools"
 echo "----------------------------------------------------"
 echo "90) Delete Staging App"
-echo "90) Delete Production App"
+echo "91) Delete Production App"
 echo "99) Delete Kubernetes cluster"
 echo "===================================================="
 echo "Please enter your choice or <q> or <return> to exit"
@@ -69,12 +69,10 @@ while [ opt != "" ]
                 ;;
         90)
                 kubectl delete namespace Staging
-                clear
                 show_menu
                 ;;               
         91)
                 kubectl delete namespace production
-                clear
                 show_menu
                 ;;               
         99)
