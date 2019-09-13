@@ -2,11 +2,7 @@
 
 This repos has the code and scripts to provision and configure a cloud infrastructure running Kubernetes and the required CI/CD components to build, deploy and host a micro service based order processing demo application.
 
-<img src="images/orders.png" width="300"/>
-
 Once monitored by ELK Monitoring, a multi-tier call flow will be available.
-
-<img src="images/dt-call-flow.png" width="500"/>
 
 Footnotes:
 * Currently, these setup scripts support only Amazon EKS.  The plan is to then support Azure, RedHat, and Cloud Foundry PaaS platforms.
