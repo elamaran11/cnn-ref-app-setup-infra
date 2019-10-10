@@ -17,7 +17,7 @@
       <configVersion>2</configVersion>
       <userRemoteConfigs>
         <hudson.plugins.git.UserRemoteConfig>
-          <url>https://github.com/ORG_PLACEHOLDER/catalog-service.git</url>
+          <url>https://git.keybank.com/scm/ORG_PLACEHOLDER/cnn-ref-app-catalog-service.git</url>
         </hudson.plugins.git.UserRemoteConfig>
       </userRemoteConfigs>
       <branches>
