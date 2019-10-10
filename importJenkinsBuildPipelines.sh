@@ -18,11 +18,11 @@ else
     ORG=$1
 fi
 
-HTTP_RESPONSE=`curl -s -o /dev/null -I -w "%{http_code}" https://github.com/$ORG`
+HTTP_RESPONSE=`curl -s -o /dev/null -I -w "%{http_code}" https://git.keybank.com/projects/$ORG`
 
 if [ $HTTP_RESPONSE -ne 200 ]
 then
-    echo "GitHub organization doesn't exist - https://github.com/$ORG - HTTP status code $HTTP_RESPONSE"
+    echo "Bitbucket organization doesn't exist - https://git.keybank.com/projects/$ORG - HTTP status code $HTTP_RESPONSE"
     exit 1
 fi
 
