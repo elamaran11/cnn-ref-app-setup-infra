@@ -44,10 +44,6 @@ spec:
             value: GITHUB_ORGANIZATION_PLACEHOLDER
           - name: DOCKER_REGISTRY_IP
             value: DOCKER_REGISTRY_IP_PLACEHOLDER
-          - name: DT_TENANT_URL
-            value: DT_TENANT_URL_PLACEHOLDER
-          - name: DT_API_TOKEN
-            value: DT_API_TOKEN_PLACEHOLDER
         ports:
         - containerPort: 8080
         - containerPort: 50000

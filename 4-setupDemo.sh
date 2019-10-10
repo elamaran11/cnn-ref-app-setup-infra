@@ -12,13 +12,6 @@ then
   exit 1
 fi
 
-# validate that have dynatrace configured properly
-#./validateDynatrace.sh
-#if [ $? -ne 0 ]
-#then
-#  exit 1
-#fi
-
 # validate that have kubectl configured first
 ./validateKubectl.sh
 if [ $? -ne 0 ]
@@ -29,7 +22,7 @@ fi
 echo " "
 echo "===================================================="
 echo About to setup demo app infrastructure with these parameters:
-cat creds.json | grep -E "jenkins|dynatrace|github"
+cat creds.json | grep -E "jenkins|github"
 read -rsp $'Press ctrl-c to abort. Press any key to continue...\n====================================================' -n1 key
 
 START_TIME=$(date)
@@ -57,13 +50,11 @@ sleep 150
 # add Jenkins pipelines
 ./importJenkinsBuildPipelines.sh $GITHUB_ORGANIZATION build
 
-# add Dynatrace Operator
-#./installDynatrace.sh $DEPLOYMENT
+# add ELK Monitoring
+./installELKMon.sh
 
-# add Dynatrace Tagging rules
-#./applyAutoTaggingRules.sh
 echo "----------------------------------------------------"
-echo "Letting Dynatrace tagging rules be applied [150 seconds] ..."
+echo "Beats Monitoring to be applied [150 seconds] ..."
 #sleep 150
 
 echo "===================================================="

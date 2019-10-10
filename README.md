@@ -2,11 +2,7 @@
 
 This repos has the code and scripts to provision and configure a cloud infrastructure running Kubernetes and the required CI/CD components to build, deploy and host a micro service based order processing demo application.
 
-<img src="images/orders.png" width="300"/>
-
-Once monitored by Dynatrace, a multi-tier call flow will be available.
-
-<img src="images/dt-call-flow.png" width="500"/>
+Once monitored by ELK Monitoring, a multi-tier call flow will be available.
 
 Footnotes:
 * Currently, these setup scripts support only Amazon EKS.  The plan is to then support Azure, RedHat, and Cloud Foundry PaaS platforms.
@@ -17,7 +13,6 @@ Footnotes:
 
 ## 1. Accounts
 
-1. Dynatrace - Assumes you will use a trial SaaS dynatrace tenant from https://www.dynatrace.com/trial and create a PaaS and API token
 1. GitHub - Assumes you have a github account and have created a new github organization
 1. Cloud provider account.  Highly recommend to sign up for personal free trial as to have full admin rights and to not cause any issues with your enterprise account. Links to free trials
    * AWS - https://aws.amazon.com/free/
@@ -98,7 +93,7 @@ You can re-run both 'Install Prerequisites Tools' or 'Validate Prerequisite Tool
 
 ## 2) Enter Installation Script Inputs
 
-Before you do this step, be prepared with your github credentials, dynatrace tokens, and cloud provider project information available.
+Before you do this step, be prepared with your github credentials, and cloud provider project information available.
 
 This will prompt you for values that are referenced in the remaining setup scripts. Inputted values are stored in ```creds.json``` file.  
 
@@ -123,8 +118,7 @@ Internally, this script will:
 This script will:
 * created staging & production namespaces for the orders app
 * install jenkins in the cicd namespaces and setup credentials, environment variables and configure the t-systems performance signature plug-in
-* install the Kubernetes Dynatrace Operator
-* setup autotagging rules in Dynatrace
+* install the Kubernetes ELK Monitoring Operator
 * import Jenkins jobs for deploying the application
 
 # Other setup related scripts

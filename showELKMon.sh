@@ -2,8 +2,8 @@
 
 echo ""
 echo "-------------------------------------------------------------------------------"
-echo "kubectl -n dynatrace get pods"
+echo "kubectl get pods -n kube-system | grep beat"
 echo "-------------------------------------------------------------------------------"
-kubectl -n dynatrace get pods
+kubectl get pods -n kube-system | grep beat
 
 

@@ -16,9 +16,3 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: production
----
-# Namespace for dynatrace
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: dynatrace

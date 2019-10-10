@@ -9,7 +9,7 @@ JENKINS_USER=$(cat creds.json | jq -r '.jenkinsUser')
 JENKINS_PASSWORD=$(cat creds.json | jq -r '.jenkinsPassword')
 GITHUB_USER_NAME=$(cat creds.json | jq -r '.githubUserName')
 GITHUB_PERSONAL_ACCESS_TOKEN=$(cat creds.json | jq -r '.githubPersonalAccessToken')
-DT_API_TOKEN=$(cat creds.json | jq -r '.dynatraceApiToken')
+DT_API_TOKEN= 
 JENKINS_URL_PORT=$(kubectl get service jenkins -n cicd -o=json | jq -r '.spec.ports[] | select(.name=="http") | .port')
 # Ela
 case $DEPLOYMENT in
