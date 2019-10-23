@@ -5,8 +5,12 @@ RESOURCE_PREFIX=$(cat creds.json | jq -r '.resourcePrefix')
 GKE_PROJECT=$(cat creds.json | jq -r '.gkeProject')
 CLUSTER_ZONE=$(cat creds.json | jq -r '.clusterZone')
 CLUSTER_NAME="$RESOURCE_PREFIX"-dt-kube-demo-cluster
+<<<<<<< HEAD
+NETWORK_NAME=gcp-dev-network
+=======
 NETWORK_NAME=gke-dev-network
 SUBNET_NAME=subnet-dev-gke-uscentral1
+>>>>>>> 91ae116bb4a725a70b96193bdb4f31e925d22b8e
 
 echo "===================================================="
 echo "About to provision GCP Resources. "
@@ -36,11 +40,10 @@ gcloud container clusters create $CLUSTER_NAME \
   --num-nodes 3 \
   --zone=$CLUSTER_ZONE \
   --cluster-version latest \
-  --enable-cloud-logging \
-  --enable-cloud-monitoring \
   --network $NETWORK_NAME \
   --subnetwork subnet-dev-gke-uscentral1 \
-  --services-secondary-range-name range-1 \
+  --cluster-secondary-range-name range-1 \
+  --services-secondary-range-name range-2 \
   --enable-ip-alias
 
 echo "------------------------------------------------------"

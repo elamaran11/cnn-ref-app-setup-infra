@@ -5,6 +5,7 @@ metadata:
   name: jenkins
   namespace: cicd
 spec:
+  loadBalancerIP: 10.254.36.51
   type: LoadBalancer
   ports:
   - name: http
