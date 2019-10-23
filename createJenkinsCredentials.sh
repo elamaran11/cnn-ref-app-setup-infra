@@ -47,9 +47,6 @@ then
   --user $JENKINS_USER:$JENKINS_PASSWORD
 fi
 
-REGISTRY_USER="gke"
-REGISTRY_TOKEN="password"
-echo $CRED_NAME
 echo "----------------------------------------------------"
 echo "Adding $CRED_NAME ..."
 echo "----------------------------------------------------"
