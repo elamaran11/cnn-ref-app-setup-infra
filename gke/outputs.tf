@@ -25,3 +25,7 @@ output "zones" {
 output "region" {
   value = module.gke.region
 }
+
+output "endpoint" {
+  value = module.gke.endpoint
+}

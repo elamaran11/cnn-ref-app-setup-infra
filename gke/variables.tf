@@ -46,13 +46,13 @@ variable "project_id" {
 }
 
 variable "services_subnet" {
-  type = string
+  type        = string
   description = "The secondary subnetwork name for services"
-  default = "range-2"
+  default     = "range-2"
 }
 
 variable "pods_subnet" {
-  type = string
+  type        = string
   description = "The secondary subnetwork name for pods"
-  default = "range-1"
+  default     = "range-1"
 }
