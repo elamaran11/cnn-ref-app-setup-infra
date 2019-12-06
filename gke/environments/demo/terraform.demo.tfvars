@@ -1,3 +1,4 @@
+region = "us-east4"
 cluster_name = "devopscluster"
 gcp_cluster_count = 3
 linux_admin_username = "adminuser"
