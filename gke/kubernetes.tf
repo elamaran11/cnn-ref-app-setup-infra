@@ -1,6 +1,6 @@
 data "google_client_config" "current" {}
 data "google_project" "project" {
-  project             = data.google_client_config.current.project
+  project_id             = data.google_client_config.current.project
 }
 
 module "gke" {
