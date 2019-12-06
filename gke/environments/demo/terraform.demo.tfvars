@@ -1,1 +1,1 @@
-# project_id = "terraform-demo-236519"
+project_id = "terraform-demo-236519"
