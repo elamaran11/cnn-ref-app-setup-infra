@@ -4,8 +4,8 @@ steps:
   args:
   - kms
   - decrypt
-  - --ciphertext-file=secrets/terraform-credentials.json.enc
-  - --plaintext-file=secrets/credentials.json
+  - --ciphertext-file=./gke/secrets/terraform-credentials.json.enc
+  - --plaintext-file=./gke/secrets/credentials.json
   - --location=global
   - --keyring=terraform-keys
   - --key=cloudbuild-terraform
