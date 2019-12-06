@@ -40,5 +40,5 @@ steps:
 options:
   env:
   # - 'ENV=demo'
-  - 'GOOGLE_CLOUD_KEYFILE_JSON=/workspace/secrets/credentials.json'
-  - 'GOOGLE_APPLICATION_CREDENTIALS=/workspace/secrets/credentials.json'
+  - 'GOOGLE_CLOUD_KEYFILE_JSON=/workspace/gke/secrets/credentials.json'
+  - 'GOOGLE_APPLICATION_CREDENTIALS=/workspace/gke/secrets/credentials.json'
