@@ -3,7 +3,7 @@ data "google_project" "project" {}
 
 module "gke" {
   source                 = "terraform-google-modules/kubernetes-engine/google"
-  project_id             = var.project_id
+  # project_id             = var.project_id
   region                 = var.region
   zones                  = [var.zone]
   name                   = "${var.resource_prefix}-${var.cluster_name}"
@@ -28,14 +28,14 @@ provider "kubernetes" {
 
 resource "kubernetes_namespace" "stage" {
   metadata {
-    name = "stage"
+    name = "staging"
   }
 }
 
 
 resource "kubernetes_namespace" "prod" {
   metadata {
-    name = "prod"
+    name = "production"
   }
 }
 

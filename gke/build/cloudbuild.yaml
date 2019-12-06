@@ -17,7 +17,7 @@ steps:
   - '-c'
   - |
       cd gke
-      terraform init -backend-config=./environments/$$ENV/backend.$$ENV.tf
+      terraform init -backend-config=./environments/$_ENV/backend.$_ENV.tf
 
 - id: 'tf plan'
   name: 'hashicorp/terraform:0.12.17'
@@ -26,7 +26,7 @@ steps:
   - '-c'
   - |
       cd gke
-      terraform plan -var-file=./environments/$$ENV/terraform.$$ENV.tfvars
+      terraform plan -var-file=./environments/$_ENV/terraform.$_ENV.tfvars
 
 - id: 'tf apply'
   name: 'hashicorp/terraform:0.12.17'
@@ -36,9 +36,9 @@ steps:
   - |
       apk add --update jq bash curl
       cd gke
-      terraform apply -auto-approve -var-file=./environments/$$ENV/terraform.$$ENV.tfvars
+      terraform apply -auto-approve -var-file=./environments/$_ENV/terraform.$_ENV.tfvars
 options:
   env:
-  - 'ENV=demo'
+  # - 'ENV=demo'
   - 'GOOGLE_CLOUD_KEYFILE_JSON=/workspace/secrets/credentials.json'
   - 'GOOGLE_APPLICATION_CREDENTIALS=/workspace/secrets/credentials.json'

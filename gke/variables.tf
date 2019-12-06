@@ -40,10 +40,10 @@ variable "subnetwork" {
   default     = "subnet-dev-gke-uscentral1"
 }
 
-variable "project_id" {
-  type        = string
-  description = "The GCP Project for the GKE cluster"
-}
+# variable "project_id" {
+#   type        = string
+#   description = "The GCP Project for the GKE cluster"
+# }
 
 variable "services_subnet" {
   type        = string
