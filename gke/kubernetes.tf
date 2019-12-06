@@ -12,7 +12,6 @@ module "gke" {
   ip_range_services      = var.services_subnet
   create_service_account = false
   service_account        = "${data.google_project.project.number}@developer.gserviceaccount.com"
-  master_ipv4_cidr_block = "172.16.0.0/28"
   initial_node_count     = var.gcp_cluster_count
 }
 

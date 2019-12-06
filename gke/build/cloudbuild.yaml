@@ -26,7 +26,7 @@ steps:
   - '-c'
   - |
       cd gke
-      terraform plan -var-file=./environments/$$ENV/terraform.$$ENV.tfvars -var "credentials_file=../secrets/credentials.json"
+      terraform plan -var-file=./environments/$$ENV/terraform.$$ENV.tfvars
 
 - id: 'tf apply'
   name: 'hashicorp/terraform:0.12.17'
@@ -35,7 +35,8 @@ steps:
   - '-c'
   - |
       cd gke
-      terraform apply -auto-approve
+      terraform apply -auto-approve -var-file=./environments/$$ENV/terraform.$$ENV.tfvars
 options:
   env:
   - 'ENV=demo'
+  - 'GOOGLE_CLOUD_KEYFILE_JSON=/workspace/secrets/credentials.json'

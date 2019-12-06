@@ -44,3 +44,15 @@ variable "project_id" {
   type        = string
   description = "The GCP Project for the GKE cluster"
 }
+
+variable "services_subnet" {
+  type = string
+  description = "The secondary subnetwork name for services"
+  default = "range-2"
+}
+
+variable "pods_subnet" {
+  type = string
+  description = "The secondary subnetwork name for pods"
+  default = "range-1"
+}
