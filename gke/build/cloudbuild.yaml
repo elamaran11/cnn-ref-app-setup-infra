@@ -34,9 +34,11 @@ steps:
   args:
   - '-c'
   - |
+      apk add --update jq bash curl
       cd gke
       terraform apply -auto-approve -var-file=./environments/$$ENV/terraform.$$ENV.tfvars
 options:
   env:
   - 'ENV=demo'
   - 'GOOGLE_CLOUD_KEYFILE_JSON=/workspace/secrets/credentials.json'
+  - 'GOOGLE_APPLICATION_CREDENTIALS=/workspace/secrets/credentials.json'

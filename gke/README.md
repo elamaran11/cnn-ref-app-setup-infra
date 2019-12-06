@@ -6,6 +6,7 @@ Set up a simple GKE cluster using the Google Cloud Terraform module
 - terraform >= 12
 - Google Cloud SDK
 - Google Cloud Account or Service Account credentials
+- jq
 
 ## Getting Started
 

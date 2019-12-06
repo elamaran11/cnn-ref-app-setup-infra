@@ -17,6 +17,8 @@ manifests/gen/
 terraform/.terraform*
 terraform/terraform.tfstate*
 terraform/*.yaml
+terraform.tfstate
+terraform.tfstate*
 .terraform
 
 # pipeline generated files

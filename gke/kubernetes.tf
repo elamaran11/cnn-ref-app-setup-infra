@@ -11,7 +11,7 @@ module "gke" {
   ip_range_pods          = var.pods_subnet
   ip_range_services      = var.services_subnet
   create_service_account = false
-  service_account        = "${data.google_project.project.number}@developer.gserviceaccount.com"
+  service_account        = "${data.google_project.project.number}-compute@developer.gserviceaccount.com"
   initial_node_count     = var.gcp_cluster_count
 }
 
