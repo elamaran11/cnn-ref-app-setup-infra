@@ -1,12 +1,12 @@
 data "google_client_config" "current" {}
 data "google_project" "project" {
-  project_id             = data.google_client_config.current.project_id
+  project_id             = data.google_client_config.current.project
 }
 
 module "gke" {
   source                 = "terraform-google-modules/kubernetes-engine/google"
   # project_id             = data.google_project.project.project_id
-  project_id             = data.google_client_config.current.project_id
+  project_id             = data.google_client_config.current.project
   region                 = var.region
   zones                  = [var.zone]
   name                   = "${var.resource_prefix}-${var.cluster_name}"
