@@ -1,0 +1,44 @@
+steps:
+- id: 'decrypt SA credentials'
+  name: gcr.io/cloud-builders/gcloud
+  args:
+  - kms
+  - decrypt
+  - --ciphertext-file=./gke/secrets/terraform-credentials.json.enc
+  - --plaintext-file=./gke/secrets/credentials.json
+  - --location=global
+  - --keyring=terraform-keys
+  - --key=cloudbuild-terraform
+
+- id: 'tf init'
+  name: 'hashicorp/terraform:0.12.17'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+      cd gke
+      terraform init -backend-config=./environments/$_ENV/backend.$_ENV.tf
+
+- id: 'tf plan'
+  name: 'hashicorp/terraform:0.12.17'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+      cd gke
+      terraform plan -var-file=./environments/$_ENV/terraform.$_ENV.tfvars
+
+- id: 'tf apply'
+  name: 'hashicorp/terraform:0.12.17'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+      apk add --update jq bash curl
+      cd gke
+      terraform apply -auto-approve -var-file=./environments/$_ENV/terraform.$_ENV.tfvars
+options:
+  env:
+  # - 'ENV=demo'
+  - 'GOOGLE_CLOUD_KEYFILE_JSON=/workspace/gke/secrets/credentials.json'
+  - 'GOOGLE_APPLICATION_CREDENTIALS=/workspace/gke/secrets/credentials.json'

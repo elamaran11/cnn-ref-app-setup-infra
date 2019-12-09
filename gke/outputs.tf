@@ -1,9 +1,31 @@
-output "gcp_cluster_endpoint" {
-    value = "${google_container_cluster.gcp_kubernetes.endpoint}"
+output "ca_certificate" {
+  value = module.gke.ca_certificate
 }
-output "gcp_ssh_command" {
-    value = "ssh ${var.linux_admin_username}@${google_container_cluster.gcp_kubernetes.endpoint}"
+
+output "location" {
+  value = module.gke.location
 }
-output "gcp_cluster_name" {
-    value = "${google_container_cluster.gcp_kubernetes.name}"
+
+output "master_version" {
+  value = module.gke.master_version
+}
+
+output "name" {
+  value = module.gke.name
+}
+
+output "cluster_type" {
+  value = module.gke.type
+}
+
+output "zones" {
+  value = module.gke.zones
+}
+
+output "region" {
+  value = module.gke.region
+}
+
+output "endpoint" {
+  value = module.gke.endpoint
 }
