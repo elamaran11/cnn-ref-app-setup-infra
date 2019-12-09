@@ -28,24 +28,6 @@ steps:
       cd gke
       terraform plan -var-file=./environments/$_ENV/terraform.$_ENV.tfvars
 
-- id: 'tf apply'
-  name: 'hashicorp/terraform:0.12.17'
-  entrypoint: 'sh'
-  args:
-  - '-c'
-  - |
-      apk add --update jq bash curl
-      cd gke
-      terraform apply -auto-approve -var-file=./environments/$_ENV/terraform.$_ENV.tfvars
-
-# - id: 'Install Beats'
-#   name: 'ubuntu'
-#   entrypoint: 'bash'
-#   args:
-#   - '-c'
-#   - |
-#       git clone https://github.com/elastic/examples.git
-
 options:
   env:
   # - 'ENV=demo'
