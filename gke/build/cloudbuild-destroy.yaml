@@ -26,9 +26,9 @@ steps:
   - '-c'
   - |
       cd gke
-      terraform plan -var-file=./environments/$_ENV/terraform.$_ENV.tfvars
+      terraform plan -destroy -var-file=./environments/$_ENV/terraform.$_ENV.tfvars
 
-- id: 'tf apply'
+- id: 'tf destroy'
   name: 'hashicorp/terraform:0.12.17'
   entrypoint: 'sh'
   args:
@@ -36,15 +36,7 @@ steps:
   - |
       apk add --update jq bash curl
       cd gke
-      terraform apply -auto-approve -var-file=./environments/$_ENV/terraform.$_ENV.tfvars
-
-# - id: 'Install Beats'
-#   name: 'ubuntu'
-#   entrypoint: 'bash'
-#   args:
-#   - '-c'
-#   - |
-#       git clone https://github.com/elastic/examples.git
+      terraform destroy -auto-approve -var-file=./environments/$_ENV/terraform.$_ENV.tfvars
 
 options:
   env:
