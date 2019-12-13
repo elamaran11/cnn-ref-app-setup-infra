@@ -38,6 +38,10 @@ steps:
       cd gke
       terraform apply -auto-approve -var-file=./environments/$_ENV/terraform.$_ENV.tfvars
 
+- id: 'Trigger Stage Deployment'
+  name: 'gcr.io/cloud-builders/gcloud'
+  args: ['alpha', 'builds', 'triggers', 'run', '--branch=master', 'DeployStage']
+
 # - id: 'Install Beats'
 #   name: 'ubuntu'
 #   entrypoint: 'bash'
