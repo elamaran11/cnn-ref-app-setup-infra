@@ -40,7 +40,7 @@ steps:
 
 - id: 'Trigger Stage Deployment'
   name: 'gcr.io/cloud-builders/gcloud'
-  args: ['alpha', 'builds', 'triggers', 'run', '--branch=cloudbuild', 'DeployStage']
+  args: ['alpha', 'builds', 'triggers', 'run', '--branch=master', 'DeployStage']
 
 # - id: 'Install Beats'
 #   name: 'ubuntu'
