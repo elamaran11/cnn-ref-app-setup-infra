@@ -59,7 +59,7 @@ cp ./pipelines/load*.xml ./pipelines/gen/
 if [ $2 == "build" ]
 then
   cp ./pipelines/build*.xml ./pipelines/gen/
-  JOBLIST="build-order-service build-catalog-service build-customer-service build-front-end deploy-service deploy-staging deploy-production load-test"
+  JOBLIST="build-order-service build-catalog-service build-customer-service build-payment-service build-front-end deploy-service deploy-staging deploy-production load-test"
 else
   JOBLIST="deploy-staging deploy-production deploy-service load-test"
 fi
