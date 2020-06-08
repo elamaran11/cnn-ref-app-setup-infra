@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Grab the configuration
-#git clone https://git.keybank.com/scm/gcp00/gke-kubernetes-cluster-beats-monitoring.git
-git clone https://git.keybank.com/scm/cnn00/cnn-ref-app-k8s-beats.git
+
+git clone https://github.com/cnn-ref-app-k8s-beats.git
 
 # Set the cluster-admin-binding
 
@@ -18,7 +18,7 @@ kubectl get pods --namespace=kube-system | grep kube-state
 # Install kube-state-metrics:
 
 #git clone https://github.com/kubernetes/kube-state-metrics.git
-git clone https://git.keybank.com/scm/cnn00/cnn-ref-app-kube-state-metrics.git
+git clone https://github.com/cnn-ref-app-kube-state-metrics.git
 
 #kubectl create -f kube-state-metrics/kubernetes
 kubectl apply -f cnn-ref-app-kube-state-metrics/examples/standard
